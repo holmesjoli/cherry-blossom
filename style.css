@@ -1,6 +1,7 @@
 html, body {
-  background-color: #B5DBF5;
+  background-color: #8AB9E3;
   text-align: center;
+  color: #FFFFFF;
 }
 
 .container {
@@ -12,4 +13,21 @@ html, body {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+}
+
+#timer {
+  width: 200px;
+  height: 200px;
+  font-size: 40pt;
+  border: 3px #ffffff solid;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 60px 20px 20px 20px;
+}
+
+.timer-container {
+  display: inline-block;
+  text-align: center;
 }
