@@ -1,0 +1,15 @@
+html, body {
+  background-color: #B5DBF5;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}

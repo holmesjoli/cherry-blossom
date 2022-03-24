@@ -44,4 +44,5 @@ bloom <- readxl::read_excel("./data/KyotoFullFlower7.xls", skip = 24) %>%
 
 df <- bloom %>%
   full_join(temp) %>%
-  full_join(temp_smooth)
+  full_join(temp_smooth) %>%
+  write_csv("../data/data.csv")
