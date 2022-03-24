@@ -25,7 +25,22 @@ bloom <- readxl::read_excel("./data/KyotoFullFlower7.xls", skip = 24)
 bloom_notes <- readxl::read_excel("./data/KyotoFullFlower7.xls", col_names = F) %>%
   slice(1:25)
 
-bloom <- readxl::read_excel("./data/KyotoFullFlower7.xls", skip = 24)
+source_lu <- bloom_notes %>%
+  slice(8:15) %>%
+  select(1) %>%
+  rename(lu = 1) %>%
+  separate(lu, c("code", "source"), sep = ":|;") %>%
+  mutate(source = str_trim(source, "left"))
+
+type_lu <- bloom_notes %>%
+  slice(17:23) %>%
+  select(1) %>%
+  rename(lu = 1) %>%
+  separate(lu, c("code", "type"), sep = ":|;") %>%
+  mutate(type = str_trim(type, "left"))
+
+bloom <- readxl::read_excel("./data/KyotoFullFlower7.xls", skip = 24) %>%
+  mutate(`Reference Name` = ifelse(`Reference Name` == "-", NA, `Reference Name`))
 
 df <- bloom %>%
   full_join(temp) %>%
