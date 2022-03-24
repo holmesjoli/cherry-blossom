@@ -1,5 +1,6 @@
+var totalSeconds = 0;
+
 function buildTimer() {
-    var totalSeconds = 0;
     
     function setTime() {
         ++totalSeconds;
@@ -8,3 +9,7 @@ function buildTimer() {
     
     setInterval(setTime, 100);
 };
+
+document.getElementById("reset").addEventListener("click", function(e) {
+    totalSeconds = 0;
+});
