@@ -20,6 +20,8 @@ function drawVis(data, dates) {
 
     console.log(data);
     console.log(dates);
+
+    let datesExtent = d3.extent(dates, function(d) {return +d.date_doy});
     
-    timer();
+    timer(datesExtent[0], datesExtent[1]);
 }

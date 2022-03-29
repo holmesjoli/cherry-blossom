@@ -1,8 +1,8 @@
 // Title Timer
 // Build the timer between the days from the data
-function timer() {
-    let start = 87;
-    let end = 125;
+function timer(date_min, date_max) {
+    let start = date_min;
+    let end = date_max;
     var counter = start;
     let monthId = document.getElementById('month');
     let dayId = document.getElementById('days');
