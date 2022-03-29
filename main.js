@@ -5,7 +5,15 @@ const files = {
     },
     dates: {
         pth: "./data/dates.csv",
-        parse: null,
+        parse: function(j) {
+            return {
+                date: j.date,
+                month: j.month,
+                month_name: j.month_name,
+                day: j.day,
+                i: +j.i
+            }
+        },
     }
 };
 
