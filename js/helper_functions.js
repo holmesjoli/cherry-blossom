@@ -1,14 +1,16 @@
 function timer() {
-    var totalSeconds = 87;
+    let start = 87;
+    let end = 125;
+    var counter = start;
     let monthId = document.getElementById('month');
     let dayId = document.getElementById('days');
 
     function buildTimer() {
 
         function setTime() {
-            if (totalSeconds < 125) {
-                totalSeconds++;
-                dayId.innerHTML = `${totalSeconds}`;
+            if (counter < end) {
+                counter++;
+                dayId.innerHTML = `${counter}`;
             } else {
                 clearInterval(monthId);
                 clearInterval(dayId);
@@ -19,7 +21,7 @@ function timer() {
     };
 
     document.getElementById("reset").addEventListener("click", function(e) {
-        totalSeconds = 87;
+        counter = start;
     });
 
     buildTimer();
