@@ -1,23 +1,26 @@
-var totalSeconds = 87;
+function timer() {
+    var totalSeconds = 87;
+    let monthId = document.getElementById('month');
+    let dayId = document.getElementById('days');
 
-let monthId = document.getElementById('month');
-let dayId = document.getElementById('days');
+    function buildTimer() {
 
-function buildTimer() {
-
-    function setTime() {
-        if (totalSeconds < 125) {
-            totalSeconds++;
-            dayId.innerHTML = `${totalSeconds}`;
-        } else {
-            clearInterval(monthId);
-            clearInterval(dayId);
+        function setTime() {
+            if (totalSeconds < 125) {
+                totalSeconds++;
+                dayId.innerHTML = `${totalSeconds}`;
+            } else {
+                clearInterval(monthId);
+                clearInterval(dayId);
+            }
         }
-    }
 
-    setInterval(setTime, 250);
-};
+        setInterval(setTime, 250);
+    };
 
-document.getElementById("reset").addEventListener("click", function(e) {
-    totalSeconds = 87;
-});
+    document.getElementById("reset").addEventListener("click", function(e) {
+        totalSeconds = 87;
+    });
+
+    buildTimer();
+}

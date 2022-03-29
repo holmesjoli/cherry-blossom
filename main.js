@@ -21,5 +21,5 @@ function drawVis(data, dates) {
     console.log(data);
     console.log(dates);
     
-    buildTimer();
+    timer();
 }
