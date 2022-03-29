@@ -25,6 +25,8 @@ function timer(dates) {
     let monthId = document.getElementById('month');
     let dayId = document.getElementById('days');
 
+    let play = true;
+
     function buildTimer() {
 
         function setTime() {
@@ -35,7 +37,10 @@ function timer(dates) {
                 });
                 dayId.innerHTML = `${filteredDates[0].day}`;
                 monthId.innerHTML = `${filteredDates[0].month_name}`;
-                counter++;
+
+                if (play) {
+                    counter++;
+                }
             } else {
                 clearInterval(monthId);
                 clearInterval(dayId);
@@ -47,6 +52,10 @@ function timer(dates) {
 
     document.getElementById("reset").addEventListener("click", function(e) {
         counter = start;
+    });
+
+    document.getElementById("play-pause").addEventListener("click", function(e) {
+        play = !play;
     });
 
     buildTimer();
