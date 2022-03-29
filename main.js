@@ -18,11 +18,8 @@ Promise.all(promises).then(function (values) {
 
 function drawVis(data, dates) {
 
+    console.log(data);
+    console.log(dates);
     
-
-        console.log(data);
-        console.log(dates);
-
+    buildTimer();
 }
-
-buildTimer();
