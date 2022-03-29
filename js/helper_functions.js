@@ -17,13 +17,15 @@ function read(pth, parse, promises) {
 // Title Timer
 // Build the timer between the days from the data
 function timer(dates) {
-    let datesExtent = d3.extent(dates, function(d) {return +d.i});
 
+    let datesExtent = d3.extent(dates, function(d) {return +d.i});
     let start = datesExtent[0];
     let end = datesExtent[1];
     var counter = start;
     let monthId = document.getElementById('month');
     let dayId = document.getElementById('days');
+    let playPause = document.getElementById("play-pause");
+    let reset = document.getElementById("reset");
 
     let play = true;
 
@@ -50,12 +52,18 @@ function timer(dates) {
         setInterval(setTime, 250);
     };
 
-    document.getElementById("reset").addEventListener("click", function(e) {
+    reset.addEventListener("click", function(e) {
         counter = start;
     });
 
-    document.getElementById("play-pause").addEventListener("click", function(e) {
+    playPause.addEventListener("click", function(e) {
         play = !play;
+
+        if (play) {
+            playPause.className = "fa fa-play";
+        } else {
+            playPause.className = "fa fa-pause";
+        }
     });
 
     buildTimer();
