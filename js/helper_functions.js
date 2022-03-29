@@ -25,6 +25,7 @@ function timer(dates) {
     let monthId = document.getElementById('month');
     let dayId = document.getElementById('days');
     let playPause = document.getElementById("play-pause");
+    let playPauseIcon = document.getElementById("play-pause-icon");
     let reset = document.getElementById("reset");
 
     let play = true;
@@ -60,9 +61,9 @@ function timer(dates) {
         play = !play;
 
         if (play) {
-            playPause.className = "fa fa-play";
+            playPauseIcon.className = "fa fa-play";
         } else {
-            playPause.className = "fa fa-pause";
+            playPauseIcon.className = "fa fa-pause";
         }
     });
 
