@@ -1,12 +1,17 @@
 var totalSeconds = 0;
+let intervalId = document.getElementById('days');
 
 function buildTimer() {
-    
+
     function setTime() {
-        ++totalSeconds;
-        document.getElementById('days').innerHTML = `${totalSeconds} days`;
-    };
-    
+        if (totalSeconds < 125) {
+            totalSeconds++;
+            intervalId.innerHTML = `${totalSeconds} days`;
+        } else {
+            clearInterval(intervalId);
+        }
+    }
+
     setInterval(setTime, 100);
 };
 
