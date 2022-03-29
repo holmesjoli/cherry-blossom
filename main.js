@@ -1,16 +1,22 @@
-const files = [
-    { "type": "csv", "file": "./data/data.csv" },
-    { "type": "csv", "file": "./data/dates.csv" } // dataset of every earthquake on Mar 21, 2022 from here: https://earthquake.usgs.gov/earthquakes/feed/v1.0/csv.php
-];
+const files = {
+    bloom: {
+        pth: "./data/data.csv",
+        parse: null,
+    },
+    dates: {
+        pth: "./data/dates.csv",
+        parse: null,
+    }
+};
+
+
 let promises = [];
 
-files.forEach(function (d) {
-    if (d.type == "json") {
-        promises.push(d3.json(d.file));
-    } else {
-        promises.push(d3.csv(d.file));
-    }
-});
+for (var key of Object.keys(files)) {
+    var fl = files[key];
+    read(fl.pth, fl.parse, promises);
+}
+
 
 Promise.all(promises).then(function (values) {
     drawVis(values[0], values[1])
