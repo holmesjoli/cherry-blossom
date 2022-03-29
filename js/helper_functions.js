@@ -1,4 +1,4 @@
-var totalSeconds = 0;
+var totalSeconds = 87;
 let intervalId = document.getElementById('days');
 
 function buildTimer() {
@@ -16,5 +16,5 @@ function buildTimer() {
 };
 
 document.getElementById("reset").addEventListener("click", function(e) {
-    totalSeconds = 0;
+    totalSeconds = 87;
 });
