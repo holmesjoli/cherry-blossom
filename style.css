@@ -4,16 +4,16 @@ html, body {
   color: #FFFFFF;
 }
 
-input {
-  max-width: 33%;
+button {
   background: #FEE9E5;
   border: 2px solid #FEE9E5;
   border-radius: 7px;
   color: #6C4B78;
   font-size: 14pt;
+  margin: auto;
 }
 
-input:hover {
+button:hover {
   background: #FBD4D8;
   border: 2px solid #FFFFFF;
 }
@@ -49,8 +49,4 @@ input:hover {
 .timer-container {
   display: inline-block;
   text-align: center;
-}
-
-.user-control {
-  margin: auto;
 }
