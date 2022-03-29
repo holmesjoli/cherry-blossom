@@ -1,18 +1,21 @@
 var totalSeconds = 87;
-let intervalId = document.getElementById('days');
+
+let monthId = document.getElementById('month');
+let dayId = document.getElementById('days');
 
 function buildTimer() {
 
     function setTime() {
         if (totalSeconds < 125) {
             totalSeconds++;
-            intervalId.innerHTML = `${totalSeconds} days`;
+            dayId.innerHTML = `${totalSeconds}`;
         } else {
-            clearInterval(intervalId);
+            clearInterval(monthId);
+            clearInterval(dayId);
         }
     }
 
-    setInterval(setTime, 100);
+    setInterval(setTime, 250);
 };
 
 document.getElementById("reset").addEventListener("click", function(e) {
