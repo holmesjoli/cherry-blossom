@@ -17,7 +17,6 @@ const files = {
     }
 };
 
-
 let promises = [];
 
 for (var key of Object.keys(files)) {
