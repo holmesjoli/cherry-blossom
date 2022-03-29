@@ -1,3 +1,5 @@
+// Title Timer
+// Build the timer between the days from the data
 function timer() {
     let start = 87;
     let end = 125;
