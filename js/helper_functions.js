@@ -29,8 +29,13 @@ function timer(dates) {
 
         function setTime() {
             if (counter < end) {
+
+                let filteredDates = dates.filter(function(d) {
+                    return d.i === counter;
+                });
+                dayId.innerHTML = `${filteredDates[0].day}`;
+                monthId.innerHTML = `${filteredDates[0].month_name}`;
                 counter++;
-                dayId.innerHTML = `${counter}`;
             } else {
                 clearInterval(monthId);
                 clearInterval(dayId);
