@@ -25,6 +25,7 @@ function timer(dates) {
     let playPauseIcon = document.getElementById("play-pause-icon");
     let reset = document.getElementById("reset");
     let play = true;
+    let date;
 
     function setTime() {
 
@@ -39,6 +40,8 @@ function timer(dates) {
             });
             dayId.innerHTML = `${filteredDates[0].day}`;
             monthId.innerHTML = `${filteredDates[0].month_name}`;
+
+            date = `${filteredDates[0].month}` + `${filteredDates[0].day}`
 
             if (play) {
                 counter++;
