@@ -78,11 +78,11 @@ function uniqueArray(data, variable) {
 // Title Autopopulation divs
 // Param selectorId the selector id
 // Param n the number of divs to create
-function addDivs(selectorId, n) {
+function addDivs(selectorId, n, width, height) {
     let element = "";
 
     for (let i = 0; i < n; i++) {
-        element += `<div><svg id="century-${i}"></svg></div>`;
+        element += `<div width=${width} height=${height} class="century-container"><svg width=${width} height=${height} id="century-${i}"></svg></div>`;
     }
 
     document.getElementById(selectorId).innerHTML = element;
