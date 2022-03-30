@@ -1,7 +1,17 @@
 const files = {
     bloom: {
         pth: "./data/data.csv",
-        parse: null,
+        parse: function(j) {
+            return {
+                AD: j.AD,
+                data: j.date,
+                reconstructed: j.reconstructed,
+                data_type_code: j.data_type_code,
+                century: +j.century,
+                temp_bin: j.temp_bin,
+                date_as_date: j.date_as_date
+            }
+        },
     },
     dates: {
         pth: "./data/dates.csv",
@@ -35,4 +45,8 @@ function drawVis(data, dates) {
     console.log(dates);
     
     timer(dates);
+
+    let centuries = uniqueArray(data, "century");
+
+    console.log(centuries);
 }
