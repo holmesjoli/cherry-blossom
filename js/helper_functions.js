@@ -64,3 +64,13 @@ function timer(dates) {
 
     setInterval(setTime, 250);
 }
+
+// Title Unique Array
+// Returns the unique values of a variable in a dataset as an array
+function uniqueArray(data, variable) {
+    let all = data.map(function (d) {
+        return d[variable];
+    });
+
+    return [...new Set(all)];
+}
