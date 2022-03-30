@@ -46,7 +46,7 @@ function drawVis(data, dates) {
     
     timer(dates);
 
-    let centuries = uniqueArray(data, "century");
+    let centuries = uniqueArray(data, "century").sort(function(a, b) {a - b});
 
     console.log(centuries);
 }
