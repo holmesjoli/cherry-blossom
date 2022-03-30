@@ -48,5 +48,7 @@ function drawVis(data, dates) {
 
     let centuries = uniqueArray(data, "century").sort(function(a, b) {a - b});
 
+    addDivs("chart-container", centuries.length);
+
     console.log(centuries);
 }

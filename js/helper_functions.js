@@ -74,3 +74,16 @@ function uniqueArray(data, variable) {
 
     return [...new Set(all)];
 }
+
+// Title Autopopulation divs
+// Param selectorId the selector id
+// Param n the number of divs to create
+function addDivs(selectorId, n) {
+    let element = "";
+
+    for (let i = 0; i < n; i++) {
+        element += `<div id="century-${i}"></div>`;
+    }
+
+    document.getElementById(selectorId).innerHTML = element;
+}
