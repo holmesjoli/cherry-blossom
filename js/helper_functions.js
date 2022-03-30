@@ -19,18 +19,19 @@ function read(pth, parse, promises) {
 function timer(dates) {
 
     let datesExtent = d3.extent(dates, function(d) {return +d.i});
-    let start = datesExtent[0];
-    let end = datesExtent[1];
+    let start = d3.min(dates, function(d) {return +d.i});
     let counter = start;
-    let monthId = document.getElementById('month');
-    let dayId = document.getElementById('days');
     let playPause = document.getElementById("play-pause");
     let playPauseIcon = document.getElementById("play-pause-icon");
     let reset = document.getElementById("reset");
-
     let play = true;
 
     function setTime() {
+
+        let end = d3.max(dates, function(d) {return +d.i});
+        let monthId = document.getElementById('month');
+        let dayId = document.getElementById('days');
+
         if (counter < end) {
 
             let filteredDates = dates.filter(function(d) {
