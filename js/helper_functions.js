@@ -82,7 +82,7 @@ function addDivs(selectorId, n) {
     let element = "";
 
     for (let i = 0; i < n; i++) {
-        element += `<div id="century-${i}"></div>`;
+        element += `<div><svg id="century-${i}"></svg></div>`;
     }
 
     document.getElementById(selectorId).innerHTML = element;
