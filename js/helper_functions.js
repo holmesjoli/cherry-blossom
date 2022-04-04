@@ -14,15 +14,29 @@ function read(pth, parse, promises) {
     }
 }
 
+function git(limit, callback, counter) {
+    var i = 0;
+    var git = setInterval(function () {
+        console.log(i);
+        if (i === limit - 1) {
+            clearInterval(git);
+            callback('done');
+        }
+        i++;
+    }, 800);
+}
+
+git(5, function (x) {
+  console.log(x);
+});
+
 // Title Set Date
 // param dates
 // param counter
 // play boolean variable
-function setDate(dates, counter, play) {
+function setDate(dates, counter, play, speed = 250) {
 
-    function iterate() {
-
-        // let date;
+    setInterval(function() {
 
         let end = d3.max(dates, function(d) {return +d.i});
         let monthId = document.getElementById('month');
@@ -33,10 +47,9 @@ function setDate(dates, counter, play) {
             let filteredDates = dates.filter(function(d) {
                 return d.i === counter;
             });
+
             dayId.innerHTML = `${filteredDates[0].day}`;
             monthId.innerHTML = `${filteredDates[0].month_name}`;
-
-            // date = `${filteredDates[0].month}` + `${filteredDates[0].day}`
 
             if (play) {
                 counter++;
@@ -45,9 +58,7 @@ function setDate(dates, counter, play) {
             clearInterval(monthId);
             clearInterval(dayId);
         }
-    }
-
-    setInterval(iterate, 250);
+    }, speed)
 }
 
 // Title Timer
