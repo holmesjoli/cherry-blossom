@@ -14,18 +14,8 @@ function read(pth, parse, promises) {
     }
 }
 
-// Title Timer
-// Build the timer between the days from the data
-function timer(dates) {
 
-    let start = d3.min(dates, function(d) {return +d.i});
-    let counter = start;
-    let playPause = document.getElementById("play-pause");
-    let playPauseIcon = document.getElementById("play-pause-icon");
-    let reset = document.getElementById("reset");
-    let play = true;
-    let date;
-
+function x(dates, counter, play) {
     function setTime() {
 
         let end = d3.max(dates, function(d) {return +d.i});
@@ -51,6 +41,21 @@ function timer(dates) {
         }
     }
 
+    setInterval(setTime, 250);
+}
+
+// Title Timer
+// Build the timer between the days from the data
+function timer(dates) {
+
+    let start = d3.min(dates, function(d) {return +d.i});
+    let counter = start;
+    let playPause = document.getElementById("play-pause");
+    let playPauseIcon = document.getElementById("play-pause-icon");
+    let reset = document.getElementById("reset");
+    let play = true;
+    let date;
+
     reset.addEventListener("click", function(e) {
         counter = start;
     });
@@ -65,7 +70,7 @@ function timer(dates) {
         }
     });
 
-    setInterval(setTime, 250);
+    x(dates, counter, play);
 }
 
 // Title Unique Array
