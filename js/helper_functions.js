@@ -18,11 +18,6 @@ function read(pth, parse, promises) {
 // param dates
 // param counter
 // play boolean variable
-function setDate(dates, counter, play, speed = 250) {
-
-    let limit = d3.max(dates, function(d) {return +d.i});
-    let monthId = document.getElementById('month');
-    let dayId = document.getElementById('days');
 
     // setInterval(function() {
 
@@ -37,40 +32,36 @@ function setDate(dates, counter, play, speed = 250) {
     //     }
     // }, speed)
 
-    function git(limit, play, callback) {
-        var i = 1;
-        let date;
-        var git = setInterval(function () {
+function setDate(params, callback) {
+    let monthId = document.getElementById('month');
+    let dayId = document.getElementById('days');
+    var i = 1;
+    let date;
+    var git = setInterval(function () {
 
-            if (i < limit + 1) {
+        if (i < params.limit + 1) {
 
-                let filteredDates = dates.filter(function(d) {
-                    return d.i === i;
-                });
+            let filteredDates = params.dates.filter(function(d) {
+                return d.i === i;
+            });
 
-                dayId.innerHTML = `${filteredDates[0].day}`;
-                monthId.innerHTML =  `${filteredDates[0].month_name}`;
+            dayId.innerHTML = `${filteredDates[0].day}`;
+            monthId.innerHTML =  `${filteredDates[0].month_name}`;
 
-                date = `${filteredDates[0].date}`;
-                
-            } else {
-                clearInterval(monthId);
-                clearInterval(dayId);
-                clearInterval(git);
-            }
+            date = `${filteredDates[0].date}`;
+            
+        } else {
+            clearInterval(monthId);
+            clearInterval(dayId);
+            clearInterval(git);
+        }
 
-            callback(date);
+        callback(date);
 
-            if (play) {
-                i++;
-            };
-        }, speed);
-    }
-
-    git(limit, play, function (x) {
-        console.log(x)
-        return x;
-    });
+        if (params.play) {
+            i++;
+        };
+    }, params.speed);
 }
 
 // Title Timer
@@ -78,11 +69,14 @@ function setDate(dates, counter, play, speed = 250) {
 function timer(dates) {
 
     let start = d3.min(dates, function(d) {return +d.i});
+    let limit = d3.max(dates, function(d) {return +d.i});
     let counter = start;
     let playPause = document.getElementById("play-pause");
     let playPauseIcon = document.getElementById("play-pause-icon");
     let reset = document.getElementById("reset");
     let play = true;
+
+    let params = {dates: dates, limit: limit, play: play, speed: 250}
 
     reset.addEventListener("click", function(e) {
         counter = start;
@@ -98,7 +92,10 @@ function timer(dates) {
         }
     });
 
-    setDate(dates, counter, play);
+    setDate(params, function (x) {
+        console.log(x)
+        return x;
+    });
 }
 
 // Title Unique Array
