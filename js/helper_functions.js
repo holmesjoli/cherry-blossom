@@ -15,8 +15,11 @@ function read(pth, parse, promises) {
 }
 
 
-function x(dates, counter, play) {
-    function setTime() {
+function setDate(dates, counter, play) {
+
+    function iterate() {
+
+        // let date;
 
         let end = d3.max(dates, function(d) {return +d.i});
         let monthId = document.getElementById('month');
@@ -30,7 +33,7 @@ function x(dates, counter, play) {
             dayId.innerHTML = `${filteredDates[0].day}`;
             monthId.innerHTML = `${filteredDates[0].month_name}`;
 
-            date = `${filteredDates[0].month}` + `${filteredDates[0].day}`
+            // date = `${filteredDates[0].month}` + `${filteredDates[0].day}`
 
             if (play) {
                 counter++;
@@ -41,7 +44,7 @@ function x(dates, counter, play) {
         }
     }
 
-    setInterval(setTime, 250);
+    setInterval(iterate, 250);
 }
 
 // Title Timer
@@ -54,7 +57,6 @@ function timer(dates) {
     let playPauseIcon = document.getElementById("play-pause-icon");
     let reset = document.getElementById("reset");
     let play = true;
-    let date;
 
     reset.addEventListener("click", function(e) {
         counter = start;
@@ -70,7 +72,7 @@ function timer(dates) {
         }
     });
 
-    x(dates, counter, play);
+    setDate(dates, counter, play);
 }
 
 // Title Unique Array
