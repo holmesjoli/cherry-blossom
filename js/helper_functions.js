@@ -14,51 +14,61 @@ function read(pth, parse, promises) {
     }
 }
 
-function git(limit, callback, counter) {
-    var i = 0;
-    var git = setInterval(function () {
-        console.log(i);
-        if (i === limit - 1) {
-            clearInterval(git);
-            callback('done');
-        }
-        i++;
-    }, 800);
-}
-
-git(5, function (x) {
-  console.log(x);
-});
-
 // Title Set Date
 // param dates
 // param counter
 // play boolean variable
 function setDate(dates, counter, play, speed = 250) {
 
-    setInterval(function() {
+    let limit = d3.max(dates, function(d) {return +d.i});
+    let monthId = document.getElementById('month');
+    let dayId = document.getElementById('days');
 
-        let end = d3.max(dates, function(d) {return +d.i});
-        let monthId = document.getElementById('month');
-        let dayId = document.getElementById('days');
+    // setInterval(function() {
 
-        if (counter < end) {
+    //     if (counter < end) {
 
-            let filteredDates = dates.filter(function(d) {
-                return d.i === counter;
-            });
+    //         let filteredDates = dates.filter(function(d) {
+    //             return d.i === counter;
+    //         });
 
-            dayId.innerHTML = `${filteredDates[0].day}`;
-            monthId.innerHTML = `${filteredDates[0].month_name}`;
+    //         dayId.innerHTML = `${filteredDates[0].day}`;
+    //         monthId.innerHTML = `${filteredDates[0].month_name}`;
 
-            if (play) {
-                counter++;
+    //         if (play) {
+    //             counter++;
+    //         }
+    //     } else {
+    //         clearInterval(monthId);
+    //         clearInterval(dayId);
+    //     }
+    // }, speed)
+
+    function git(limit, callback) {
+        var i = 1;
+        var git = setInterval(function () {
+
+            if (i < limit) {
+
+                let filteredDates = dates.filter(function(d) {
+                    return d.i === i;
+                });
+
+                dayId.innerHTML = `${filteredDates[0].day}`;
+                monthId.innerHTML = `${filteredDates[0].month_name}`;
+                
+            } else {
+                clearInterval(git);
             }
-        } else {
-            clearInterval(monthId);
-            clearInterval(dayId);
-        }
-    }, speed)
+
+            callback(i);
+            i++;
+        }, speed);
+    }
+    
+    git(limit, function (x) {
+        // console.log(x);
+    });
 }
 
 // Title Timer
