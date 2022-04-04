@@ -18,7 +18,6 @@ function read(pth, parse, promises) {
 // Build the timer between the days from the data
 function timer(dates) {
 
-    let datesExtent = d3.extent(dates, function(d) {return +d.i});
     let start = d3.min(dates, function(d) {return +d.i});
     let counter = start;
     let playPause = document.getElementById("play-pause");
