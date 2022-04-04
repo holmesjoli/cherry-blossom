@@ -28,13 +28,6 @@ function setDate(dates, counter, play, speed = 250) {
 
     //     if (counter < end) {
 
-    //         let filteredDates = dates.filter(function(d) {
-    //             return d.i === counter;
-    //         });
-
-    //         dayId.innerHTML = `${filteredDates[0].day}`;
-    //         monthId.innerHTML = `${filteredDates[0].month_name}`;
-
     //         if (play) {
     //             counter++;
     //         }
@@ -44,30 +37,39 @@ function setDate(dates, counter, play, speed = 250) {
     //     }
     // }, speed)
 
-    function git(limit, callback) {
+    function git(limit, play, callback) {
         var i = 1;
+        let date;
         var git = setInterval(function () {
 
-            if (i < limit) {
+            if (i < limit + 1) {
 
                 let filteredDates = dates.filter(function(d) {
                     return d.i === i;
                 });
 
                 dayId.innerHTML = `${filteredDates[0].day}`;
-                monthId.innerHTML = `${filteredDates[0].month_name}`;
+                monthId.innerHTML =  `${filteredDates[0].month_name}`;
+
+                date = `${filteredDates[0].date}`;
                 
             } else {
+                clearInterval(monthId);
+                clearInterval(dayId);
                 clearInterval(git);
             }
 
-            callback(i);
-            i++;
+            callback(date);
+
+            if (play) {
+                i++;
+            };
         }, speed);
     }
-    
-    git(limit, function (x) {
-        // console.log(x);
+
+    git(limit, play, function (x) {
+        console.log(x)
+        return x;
     });
 }
 
