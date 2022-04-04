@@ -14,7 +14,10 @@ function read(pth, parse, promises) {
     }
 }
 
-
+// Title Set Date
+// param dates
+// param counter
+// play boolean variable
 function setDate(dates, counter, play) {
 
     function iterate() {
