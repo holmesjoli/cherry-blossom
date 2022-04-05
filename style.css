@@ -2,6 +2,14 @@ html, body {
   background-color: #8AB9E3;
   text-align: center;
   color: #FFFFFF;
+  font-family: proxima-nova,sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1 {
+  font-size: 50pt;
+  margin: 0;
 }
 
 button {
@@ -26,6 +34,7 @@ button:hover {
 .sidebar {
   display: flex;
   flex-direction: column;
+  max-width: 15%;
 }
 
 .main {
@@ -35,9 +44,11 @@ button:hover {
 }
 
 #timer {
-  width: 200px;
-  height: 200px;
-  font-size: 40pt;
+  min-width: 150px;
+  min-height: 150px;
+  max-width: 200px;
+  max-height: 200px;
+  font-size: 30pt;
   border: 3px #ffffff solid;
   border-radius: 50%;
   display: inline-flex;
@@ -49,4 +60,8 @@ button:hover {
 .timer-container {
   display: inline-block;
   text-align: center;
+}
+
+.century-container {
+  border: 1px white solid;
 }
