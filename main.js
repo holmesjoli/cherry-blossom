@@ -45,14 +45,14 @@ function drawVis(data, dates) {
     
     let start = d3.min(dates, function(d) {return +d.i});
     let limit = d3.max(dates, function(d) {return +d.i});
-    let counter = start;
+    let i = start;
     let play = true;
-    let reset = document.getElementById("reset");
 
     let params = {
                 dates: dates, 
                 limit: limit, 
                 play: play, 
+                i: i,
                 speed: 250
             }
 
@@ -77,9 +77,10 @@ function drawVis(data, dates) {
         params.play = play;
     });
 
-    reset.addEventListener("click", function(e) {
-        counter = start;
-    });
+    d3.select("#reset")
+        .on("click", function() {
+            params.i = start;
+        });
 
     setDate(params, function (x) {
         // console.log(x)

@@ -21,13 +21,13 @@ function setDate(params, callback) {
     console.log(params.play);
     let monthId = document.getElementById('month');
     let dayId = document.getElementById('days');
-    var i = 1;
+    // var i = 1;
     var git = setInterval(function () {
 
-        if (i < params.limit + 1) {
+        if (params.i < params.limit + 1) {
 
             let filteredDates = params.dates.filter(function(d) {
-                return d.i === i;
+                return d.i === params.i;
             });
 
             dayId.innerHTML = `${filteredDates[0].day}`;
@@ -42,29 +42,9 @@ function setDate(params, callback) {
         }
 
         if (params.play) {
-            i++;
+            params.i++;
         };
     }, params.speed);
-}
-
-// Title playPause listener
-// Build the timer between the days from the data
-function playPause(play) {
-
-    let playPause = document.getElementById("play-pause");
-    let playPauseIcon = document.getElementById("play-pause-icon");
-
-    playPause.addEventListener("click", function(e) {
-        play = !play;
-
-        if (play) {
-            playPauseIcon.className = "fa fa-play";
-        } else {
-            playPauseIcon.className = "fa fa-pause";
-        }
-    });
-
-    return play;
 }
 
 // Title Unique Array
