@@ -21,7 +21,7 @@ function setDate(params, callback) {
     console.log(params.play);
     let monthId = document.getElementById('month');
     let dayId = document.getElementById('days');
-    // var i = 1;
+
     var git = setInterval(function () {
 
         if (params.i < params.limit + 1) {
