@@ -42,7 +42,7 @@ Promise.all(promises).then(function (values) {
     draw(values[0], values[1])
 });
 
-function drawVis(data, dates) {
+function drawVis(data, dates, params) {
 
     let width = window.innerWidth*.8;
     let height = window.innerHeight*.9;
@@ -111,10 +111,9 @@ function drawVis(data, dates) {
             .attr("r", 0)
             .attr("fill", function(d) { return fillScale(d.temp_bin);});
 
-
         points
             .transition()
-            .delay(function(d) {return d.i*500})
+            .delay(function(d) {return d.i*params.speed})
             .attr("r", 5)
 }
 
@@ -133,10 +132,10 @@ function draw(data, dates) {
                 limit: limit, 
                 play: play, 
                 i: i,
-                speed: 500
+                speed: 1000
             }
 
-    drawVis(data, dates);
+    drawVis(data, dates, params);
 
     const dispatch = d3.dispatch("params");
 
