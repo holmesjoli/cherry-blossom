@@ -23,7 +23,8 @@ const files = {
                 day: j.day,
                 i: +j.i,
                 century: +j.century,
-                sd: +j.sd
+                sd: j.sd,
+                date_is_median: j.date_is_median
             }
         },
     }
@@ -72,8 +73,12 @@ function drawVis(data, dates) {
         .range(["#ED0A7E", "#F17098", "#F7ACB4", "#FEE5D4"]);
 
     const sdFillScale = d3.scaleOrdinal()
-        .domain([1, 2, 3])
-        .range(["rgba(153, 197, 220, .25)", "rgba(100, 148, 186, .25)", "rgba(40, 102, 153, .25)"]);
+        .domain(["1", "2", "3"])
+        .range(["#99C5DC", "#6494BA", "#286699"]);
+
+    const sdFillOpacity = d3.scaleOrdinal()
+        .domain(["TRUE", "FALSE"])
+        .range([.7, .3]);
     
     const xAxis = svg.append("g")
         .attr("class","axis")
@@ -93,7 +98,8 @@ function drawVis(data, dates) {
             .attr("y", function(d) { return yScale(d.century); })
             .attr("width", xScale.bandwidth())
             .attr("height", yScale.bandwidth())
-            .attr("fill", function(d) {return sdFillScale(d.sd); });
+            .attr("fill", function(d) {return sdFillScale(d.sd); })
+            .attr("fill-opacity", function(d) {return sdFillOpacity(d.date_is_median); });
 
     const points = svg.selectAll("circle")
         .data(data)
@@ -102,7 +108,7 @@ function drawVis(data, dates) {
             .attr("cx", function(d) { return xScale(d.date); })
             .attr("cy", function(d) { return yScale(d.century); })
             .attr("r", 5)
-            .attr("fill", function(d) { return fillScale(d.temp_bin);})
+            .attr("fill", function(d) { return fillScale(d.temp_bin);});
 }
 
 function draw(data, dates) {
