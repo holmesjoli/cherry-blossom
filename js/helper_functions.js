@@ -15,28 +15,13 @@ function read(pth, parse, promises) {
 }
 
 // Title Set Date
-// param dates
-// param counter
-// play boolean variable
-
-    // setInterval(function() {
-
-    //     if (counter < end) {
-
-    //         if (play) {
-    //             counter++;
-    //         }
-    //     } else {
-    //         clearInterval(monthId);
-    //         clearInterval(dayId);
-    //     }
-    // }, speed)
-
+// param params
+// param callbaxk
 function setDate(params, callback) {
+    console.log(params.play);
     let monthId = document.getElementById('month');
     let dayId = document.getElementById('days');
     var i = 1;
-    let date;
     var git = setInterval(function () {
 
         if (i < params.limit + 1) {
@@ -48,7 +33,7 @@ function setDate(params, callback) {
             dayId.innerHTML = `${filteredDates[0].day}`;
             monthId.innerHTML =  `${filteredDates[0].month_name}`;
 
-            date = `${filteredDates[0].date}`;
+            callback(`${filteredDates[0].date}`);
             
         } else {
             clearInterval(monthId);
@@ -56,31 +41,18 @@ function setDate(params, callback) {
             clearInterval(git);
         }
 
-        callback(date);
-
         if (params.play) {
             i++;
         };
     }, params.speed);
 }
 
-// Title Timer
+// Title playPause listener
 // Build the timer between the days from the data
-function timer(dates) {
+function playPause(play) {
 
-    let start = d3.min(dates, function(d) {return +d.i});
-    let limit = d3.max(dates, function(d) {return +d.i});
-    let counter = start;
     let playPause = document.getElementById("play-pause");
     let playPauseIcon = document.getElementById("play-pause-icon");
-    let reset = document.getElementById("reset");
-    let play = true;
-
-    let params = {dates: dates, limit: limit, play: play, speed: 250}
-
-    reset.addEventListener("click", function(e) {
-        counter = start;
-    });
 
     playPause.addEventListener("click", function(e) {
         play = !play;
@@ -92,10 +64,7 @@ function timer(dates) {
         }
     });
 
-    setDate(params, function (x) {
-        console.log(x)
-        return x;
-    });
+    return play;
 }
 
 // Title Unique Array
