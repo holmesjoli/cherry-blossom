@@ -21,7 +21,9 @@ const files = {
                 month: j.month,
                 month_name: j.month_name,
                 day: j.day,
-                i: +j.i
+                i: +j.i,
+                century: +j.century,
+                sd: +j.sd
             }
         },
     }
@@ -58,11 +60,12 @@ function drawVis(data, dates) {
     const xScale = d3.scaleBand()
         .domain(days)
         .range([margin.left, width-margin.right])
-        .padding(0.5);
+        .padding(0.05);
 
     const yScale = d3.scaleBand()
         .domain(centuries)
-        .range([height-margin.bottom, margin.top]);
+        .range([height-margin.bottom, margin.top])
+        .padding(0.05);
 
     const fillScale = d3.scaleOrdinal()
         .domain([">=9", ">=6 & <9", ">=3 & <6", "<3"])
@@ -78,6 +81,16 @@ function drawVis(data, dates) {
         .attr("transform", `translate(${margin.left},0)`)
         .call(d3.axisLeft().scale(yScale));
 
+    const bars = svg.selectAll("rect")
+        .data(dates)
+        .enter()
+        .append("rect")
+            .attr("x", function(d) { return xScale(d.date); })
+            .attr("y", function(d) { return yScale(d.century); })
+            .attr("width", xScale.bandwidth())
+            .attr("height", yScale.bandwidth())
+            .attr("fill", "steelblue");
+
     const points = svg.selectAll("circle")
         .data(data)
         .enter()
@@ -85,8 +98,7 @@ function drawVis(data, dates) {
             .attr("cx", function(d) { return xScale(d.date); })
             .attr("cy", function(d) { return yScale(d.century); })
             .attr("r", 5)
-            .attr("fill", function(d) { return fillScale(d.temp_bin); })
-
+            .attr("fill", function(d) { return fillScale(d.temp_bin);})
 }
 
 function draw(data, dates) {
