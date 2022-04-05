@@ -42,7 +42,7 @@ function drawVis(data, dates) {
 
     let width = window.innerWidth*.8;
     let height = window.innerHeight*.9;
-    const margin = {top: 10, left: 50, right: 10, bottom: 50};
+    const margin = {top: 20, left: 50, right: 10, bottom: 50};
 
     let centuries = uniqueArray(data, "century");
     console.log(centuries);
@@ -63,6 +63,10 @@ function drawVis(data, dates) {
     const yScale = d3.scaleBand()
         .domain(centuries)
         .range([height-margin.bottom, margin.top]);
+
+    const fillScale = d3.scaleOrdinal()
+        .domain([">=9", ">=6 & <9", ">=3 & <6", "<3"])
+        .range(["#ED0A7E", "#F17098", "#F7ACB4", "#FEE5D4"]);
     
     const xAxis = svg.append("g")
         .attr("class","axis")
@@ -81,6 +85,7 @@ function drawVis(data, dates) {
             .attr("cx", function(d) { return xScale(d.date); })
             .attr("cy", function(d) { return yScale(d.century); })
             .attr("r", 5)
+            .attr("fill", function(d) { return fillScale(d.temp_bin); })
 
 }
 
