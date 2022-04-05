@@ -35,10 +35,43 @@ for (var key of Object.keys(files)) {
 }
 
 Promise.all(promises).then(function (values) {
-    drawVis(values[0], values[1])
+    draw(values[0], values[1])
 });
 
-function drawVis(data, dates) {
+function drawVis(data) {
+
+    let width = window.innerWidth*.8;
+    let height = window.innerHeight*.75;
+    const margin = {top: 50, left: 100, right: 50, bottom: 100};
+
+    let centuries = uniqueArray(data, "century").sort(function(a, b) {a - b});
+    let days = uniqueArray(data, "date");
+    console.log(centuries);
+
+    addDivs("wrapper", centuries.length, width, (height)/13);
+
+    const xScale = d3.scaleBand()
+        .domain(days)
+        .range([margin.left, width-margin.right])
+        .padding(0.5);
+
+    const yScale = d3.scaleLinear()
+        .domain([50, lifeExp.max])
+        .range([height-margin.bottom, margin.top]);
+    
+    const xAxis = svg.append("g")
+        .attr("class","axis")
+        .attr("transform", `translate(0,${height-margin.bottom})`)
+        .call(d3.axisBottom().scale(xScale));
+
+    const yAxis = svg.append("g")
+        .attr("class","axis")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(d3.axisLeft().scale(yScale));
+
+}
+
+function draw(data, dates) {
 
     console.log(data);
     console.log(dates);
@@ -48,22 +81,15 @@ function drawVis(data, dates) {
     let i = start;
     let play = true;
 
-    let width = window.innerWidth*.8;
-    let height = window.innerHeight*.75;
-
-    let centuries = uniqueArray(data, "century").sort(function(a, b) {a - b});
-
-    addDivs("wrapper", centuries.length, width, (height)/13);
-
-    console.log(centuries);
-
     let params = {
                 dates: dates, 
                 limit: limit, 
                 play: play, 
                 i: i,
-                speed: 250
+                speed: 500
             }
+
+    drawVis(data);
 
     const dispatch = d3.dispatch("params");
 
