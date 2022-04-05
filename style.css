@@ -1,7 +1,5 @@
 html, body {
-  background-color: rgba(40, 102, 153, .25);
   text-align: center;
-  color: #FFFFFF;
   font-family: proxima-nova,sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -13,13 +11,14 @@ html, body {
 h1 {
   font-size: 50pt;
   margin: 0;
+  color: #E93C8F;
 }
 
 button {
   background: #FFFFFF;
-  border: 2px solid #FFFFFF;
+  border: 2px solid #E93C8F;
   border-radius: 7px;
-  color: #6C4B78;
+  /* color: #6C4B78; */
   font-size: 14pt;
   margin: auto;
 }
@@ -52,7 +51,7 @@ button:hover {
   max-width: 200px;
   max-height: 200px;
   font-size: 30pt;
-  border: 3px #ffffff solid;
+  border: 3px #E93C8F solid;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -67,4 +66,5 @@ button:hover {
 
 .century-container {
   border: 1px white solid;
+  background-color: rgba(40, 102, 153, .25);
 }
