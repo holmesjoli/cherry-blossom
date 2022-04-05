@@ -70,6 +70,10 @@ function drawVis(data, dates) {
     const fillScale = d3.scaleOrdinal()
         .domain([">=9", ">=6 & <9", ">=3 & <6", "<3"])
         .range(["#ED0A7E", "#F17098", "#F7ACB4", "#FEE5D4"]);
+
+    const sdFillScale = d3.scaleOrdinal()
+        .domain([1, 2, 3])
+        .range(["rgba(153, 197, 220, .25)", "rgba(100, 148, 186, .25)", "rgba(40, 102, 153, .25)"]);
     
     const xAxis = svg.append("g")
         .attr("class","axis")
@@ -89,7 +93,7 @@ function drawVis(data, dates) {
             .attr("y", function(d) { return yScale(d.century); })
             .attr("width", xScale.bandwidth())
             .attr("height", yScale.bandwidth())
-            .attr("fill", "steelblue");
+            .attr("fill", function(d) {return sdFillScale(d.sd); });
 
     const points = svg.selectAll("circle")
         .data(data)
