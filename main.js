@@ -48,6 +48,12 @@ function drawVis(data, dates) {
     let i = start;
     let play = true;
 
+    let centuries = uniqueArray(data, "century").sort(function(a, b) {a - b});
+
+    addDivs("wrapper", centuries.length, 100, 100);
+
+    console.log(centuries);
+
     let params = {
                 dates: dates, 
                 limit: limit, 
@@ -86,10 +92,4 @@ function drawVis(data, dates) {
         // console.log(x)
         // return x;
     });
-
-    let centuries = uniqueArray(data, "century").sort(function(a, b) {a - b});
-
-    addDivs("wrapper", centuries.length, 100, 100);
-
-    console.log(centuries);
 }
