@@ -9,7 +9,8 @@ const files = {
                 data_type_code: j.data_type_code,
                 century: +j.century,
                 temp_bin: j.temp_bin,
-                date_as_date: j.date_as_date
+                date_as_date: j.date_as_date,
+                i: +j.i
             }
         },
     },
@@ -107,8 +108,14 @@ function drawVis(data, dates) {
         .append("circle")
             .attr("cx", function(d) { return xScale(d.date); })
             .attr("cy", function(d) { return yScale(d.century); })
-            .attr("r", 5)
+            .attr("r", 0)
             .attr("fill", function(d) { return fillScale(d.temp_bin);});
+
+
+        points
+            .transition()
+            .delay(function(d) {return d.i*500})
+            .attr("r", 5)
 }
 
 function draw(data, dates) {
