@@ -17,7 +17,7 @@ const files = {
         pth: "./data/dates.csv",
         parse: function(j) {
             return {
-                date: j.date,
+                date: +j.date,
                 month: j.month,
                 month_name: j.month_name,
                 day: j.day,
@@ -42,7 +42,7 @@ function drawVis(data, dates) {
 
     let width = window.innerWidth*.8;
     let height = window.innerHeight*.9;
-    const margin = {top: 50, left: 50, right: 10, bottom: 50};
+    const margin = {top: 10, left: 50, right: 10, bottom: 50};
 
     let centuries = uniqueArray(data, "century");
     console.log(centuries);
@@ -73,6 +73,14 @@ function drawVis(data, dates) {
         .attr("class","axis")
         .attr("transform", `translate(${margin.left},0)`)
         .call(d3.axisLeft().scale(yScale));
+
+    const points = svg.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+            .attr("cx", function(d) { return xScale(d.date); })
+            .attr("cy", function(d) { return yScale(d.century); })
+            .attr("r", 5)
 
 }
 
