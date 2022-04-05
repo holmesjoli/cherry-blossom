@@ -18,7 +18,7 @@ function read(pth, parse, promises) {
 // param params
 // param callbaxk
 function setDate(params, callback) {
-    console.log(params.play);
+
     let monthId = document.getElementById('month');
     let dayId = document.getElementById('days');
 
