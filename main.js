@@ -49,11 +49,11 @@ function drawVis(data, dates) {
     let play = true;
 
     let width = window.innerWidth*.8;
-    let height = window.innerHeight;
+    let height = window.innerHeight*.75;
 
     let centuries = uniqueArray(data, "century").sort(function(a, b) {a - b});
 
-    addDivs("wrapper", centuries.length, width, (height-100)/13);
+    addDivs("wrapper", centuries.length, width, (height)/13);
 
     console.log(centuries);
 
