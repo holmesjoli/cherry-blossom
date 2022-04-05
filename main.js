@@ -4,7 +4,7 @@ const files = {
         parse: function(j) {
             return {
                 AD: j.AD,
-                data: j.date,
+                date: +j.date,
                 reconstructed: j.reconstructed,
                 data_type_code: j.data_type_code,
                 century: +j.century,
@@ -38,25 +38,30 @@ Promise.all(promises).then(function (values) {
     draw(values[0], values[1])
 });
 
-function drawVis(data) {
+function drawVis(data, dates) {
 
     let width = window.innerWidth*.8;
-    let height = window.innerHeight*.75;
-    const margin = {top: 50, left: 100, right: 50, bottom: 100};
+    let height = window.innerHeight*.9;
+    const margin = {top: 50, left: 50, right: 10, bottom: 50};
 
-    let centuries = uniqueArray(data, "century").sort(function(a, b) {a - b});
-    let days = uniqueArray(data, "date");
+    let centuries = uniqueArray(data, "century");
     console.log(centuries);
+    let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
 
-    addDivs("wrapper", centuries.length, width, (height)/13);
+    const svg = d3.select(".main")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    // addDivs("wrapper", centuries.length, width -margin.left - margin.right, (height - margin.top - margin.bottom)/13);
 
     const xScale = d3.scaleBand()
         .domain(days)
         .range([margin.left, width-margin.right])
         .padding(0.5);
 
-    const yScale = d3.scaleLinear()
-        .domain([50, lifeExp.max])
+    const yScale = d3.scaleBand()
+        .domain(centuries)
         .range([height-margin.bottom, margin.top]);
     
     const xAxis = svg.append("g")
@@ -89,7 +94,7 @@ function draw(data, dates) {
                 speed: 500
             }
 
-    drawVis(data);
+    drawVis(data, dates);
 
     const dispatch = d3.dispatch("params");
 
