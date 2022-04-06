@@ -117,7 +117,7 @@ function drawVis(data, dates, params) {
         }).strength(.1))
         .force('y', d3.forceY().y(function (d) {
             return yScale(+d.century);
-        }).strength(1))
+        }).strength(.1))
         .force('collision', d3.forceCollide().radius(r).strength(1))
         .on('tick', ticked);
 
@@ -130,17 +130,8 @@ function drawVis(data, dates, params) {
             .attr('r', r)
             .attr("fill", function(d) { return fillScale(d.temp_bin); })
             .attr('cx', function (d) { return d.x; })
-            .attr('cy', function (d) { return d.y; });
+            .attr('cy', function (d) { return d.y - margin.bottom; });
     }
-
-    // const points = svg.selectAll("circle")
-    //     .data(data)
-    //     .enter()
-    //     .append("circle")
-    //         .attr("cx", function(d) { return xScale(d.date); })
-    //         .attr("cy", function(d) { return yScale(d.century); })
-    //         .attr("r", 0)
-    //         .attr("fill", function(d) { return fillScale(d.temp_bin);});
 
     //     points
     //         .transition()
@@ -157,7 +148,7 @@ function drawVis(data, dates, params) {
         legend
             .append("rect")
             .attr("x", margin.left + (xScale.bandwidth()+2)*i)
-            .attr("y", 20)
+            .attr("y", 0)
             .attr("width", xScale.bandwidth())
             .attr("height", yScale.bandwidth())
             .attr("fill", sdFillScale(d))
@@ -166,7 +157,7 @@ function drawVis(data, dates, params) {
         legend
             .append("text")
             .attr("x", margin.left + (xScale.bandwidth())*i + xScale.bandwidth()/2)
-            .attr("y", 20)
+            .attr("y", yScale.bandwidth()/2)
             .text(d)
     });
 
