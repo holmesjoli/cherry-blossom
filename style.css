@@ -43,7 +43,7 @@ button:hover {
 .sidebar {
   display: flex;
   flex-direction: column;
-  max-width: 15%;
+  max-width: 18%;
 }
 
 .main {
