@@ -51,6 +51,7 @@ function drawVis(data, dates, params) {
     let width = window.innerWidth*.8;
     let chartHeight = window.innerHeight*.85;
     let legendHeight = window.innerHeight*.15;
+    const sd = ["1", "2", "3"];
     const margin = {top: 20, left: 50, right: 10, bottom: 50};
 
     let centuries = uniqueArray(data, "century");
@@ -79,7 +80,7 @@ function drawVis(data, dates, params) {
         .range(["#ED0A7E", "#F17098", "#F7ACB4", "#FEE5D4"]);
 
     const sdFillScale = d3.scaleOrdinal()
-        .domain(["1", "2", "3"])
+        .domain(sd)
         .range(["#99C5DC", "#6494BA", "#286699"]);
 
     const sdFillOpacity = d3.scaleOrdinal()
@@ -159,6 +160,19 @@ function drawVis(data, dates, params) {
         .append("svg")
         .attr("width", width)
         .attr("height", legendHeight);
+
+    sd.forEach(function(d, i) {
+
+        legend
+            .append("rect")
+            .attr("x", margin.left + (xScale.bandwidth()+2)*i)
+            .attr("y", 20)
+            .attr("width", xScale.bandwidth())
+            .attr("height", yScale.bandwidth())
+            .attr("fill", sdFillScale(d))
+            .attr("fill-opacity", .25)
+    });
+
 }
 
 function draw(data, dates, flower) {
