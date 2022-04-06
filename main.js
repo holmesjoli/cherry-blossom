@@ -1,3 +1,5 @@
+import * as Helper from "./js/helper_functions.js";
+
 const files = {
     bloom: {
         pth: "./data/data.csv",
@@ -39,7 +41,7 @@ let promises = [];
 
 for (var key of Object.keys(files)) {
     var fl = files[key];
-    read(fl.pth, fl.parse, promises);
+    Helper.read(fl.pth, fl.parse, promises);
 }
 
 Promise.all(promises).then(function (values) {
@@ -55,8 +57,8 @@ function drawVis(data, dates, params) {
     const margin = {top: 20, left: 50, right: 10, bottom: 50};
     const r = 5;
 
-    let centuries = uniqueArray(data, "century");
-    let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
+    let centuries = Helper.uniqueArray(data, "century");
+    let days = Helper.uniqueArray(dates, "date").sort(function(a, b) {return a - b});
 
     const svg = d3.select("#chart")
         .append("svg")
@@ -210,7 +212,7 @@ function draw(data, dates, flower) {
             params.i = start;
         });
 
-    setDate(params, function (x) {
+        Helper.setDate(params, function (x) {
         // console.log(x)
         // return x;
     });

@@ -2,7 +2,7 @@
 // param pth str. The path or url to read the data from
 // param parse func. A parsing function specific to that data
 // param promises array. Empty array
-function read(pth, parse, promises) {
+export function read(pth, parse, promises) {
     let ext = pth.split(".").pop();
 
     if (ext === "csv") {
@@ -19,7 +19,7 @@ function read(pth, parse, promises) {
 // Title Set Date
 // param params
 // param callbaxk
-function setDate(params, callback) {
+export function setDate(params, callback) {
 
     let monthId = document.getElementById('month');
     let dayId = document.getElementById('days');
@@ -51,7 +51,7 @@ function setDate(params, callback) {
 
 // Title Unique Array
 // Returns the unique values of a variable in a dataset as an array
-function uniqueArray(data, variable) {
+export function uniqueArray(data, variable) {
     let all = data.map(function (d) {
         return d[variable];
     });
@@ -62,7 +62,7 @@ function uniqueArray(data, variable) {
 // Title Autopopulation divs
 // Param selectorId the selector id
 // Param n the number of divs to create
-function addDivs(selectorId, n, width, height) {
+export function addDivs(selectorId, n, width, height) {
     let element = "";
 
     for (let i = 0; i < n; i++) {
