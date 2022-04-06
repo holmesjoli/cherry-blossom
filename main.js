@@ -109,9 +109,9 @@ function drawVis(data, dates, params) {
             .attr("fill-opacity", function(d) {return sdFillOpacity(d.date_is_median); });
 
     var simulation = d3.forceSimulation(data)
-        .force('x', d3.forceX().x(function (d) {
-            return xScale(+d.Rating);
-        }).strength(0.1))
+        // .force('x', d3.forceX().x(function (d) {
+        //     return xScale(+d.Rating);
+        // }).strength(0.1))
         // .force('y', d3.forceY().y(function (d) {
         //     return yScale(d.Country_of_Bean_Origin);
         // }).strength(0.8))
@@ -121,7 +121,7 @@ function drawVis(data, dates, params) {
         .force('collision', d3.forceCollide().radius(function (d) { // prevent circle overlap when collide
             return 5;
         }).strength(0.8))
-        // .force('charge', d3.forceManyBody().strength(-5)) // send nodes away from eachother
+        .force('charge', d3.forceManyBody().strength(0)) // send nodes away from eachother
         .on('tick', ticked);
 
     function ticked() {
@@ -171,6 +171,12 @@ function drawVis(data, dates, params) {
             .attr("height", yScale.bandwidth())
             .attr("fill", sdFillScale(d))
             .attr("fill-opacity", .25)
+
+        legend
+            .append("text")
+            .attr("x", margin.left + (xScale.bandwidth())*i + xScale.bandwidth()/2)
+            .attr("y", 20)
+            .text(d)
     });
 
 }
