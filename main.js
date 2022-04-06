@@ -53,6 +53,7 @@ function drawVis(data, dates, params) {
     let legendHeight = window.innerHeight*.15;
     const sd = ["1", "2", "3"];
     const margin = {top: 20, left: 50, right: 10, bottom: 50};
+    const r = 5;
 
     let centuries = uniqueArray(data, "century");
     let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
@@ -109,9 +110,15 @@ function drawVis(data, dates, params) {
 
     console.log(data);
     var simulation = d3.forceSimulation(data)
-        .force('charge', d3.forceManyBody().strength(0)) // send nodes away from eachother
+        // .force('charge', d3.forceManyBody().strength(0)) // send nodes away from eachother
         .force('center', d3.forceCenter(width / 2, chartHeight / 2)) // pull nodes to a central point
-        .force('collision', d3.forceCollide().radius(5).strength(1))
+        .force('x', d3.forceX().x(function (d) {
+            return xScale(+d.date);
+        }).strength(.1))
+        .force('y', d3.forceY().y(function (d) {
+            return yScale(+d.century);
+        }).strength(1))
+        .force('collision', d3.forceCollide().radius(r).strength(1))
         .on('tick', ticked);
 
     function ticked() {
@@ -120,7 +127,7 @@ function drawVis(data, dates, params) {
             .selectAll('circle')
             .data(data)
             .join('circle')
-            .attr('r', 5)
+            .attr('r', r)
             .attr("fill", function(d) { return fillScale(d.temp_bin); })
             .attr('cx', function (d) { return d.x; })
             .attr('cy', function (d) { return d.y; });
@@ -138,7 +145,7 @@ function drawVis(data, dates, params) {
     //     points
     //         .transition()
     //         .delay(function(d) {return d.i*params.speed})
-    //         .attr("r", 5)
+    //         .attr("r", r)
 
     // const legend = d3.select("#legend")
     //     .append("svg")
