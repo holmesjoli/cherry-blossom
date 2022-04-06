@@ -127,16 +127,16 @@ function drawVis(data, dates, params) {
             .selectAll('circle')
             .data(data)
             .join('circle')
-            .attr('r', r)
+            .attr('r', 0)
             .attr("fill", function(d) { return fillScale(d.temp_bin); })
             .attr('cx', function (d) { return d.x; })
             .attr('cy', function (d) { return d.y - margin.bottom; });
-    }
 
-    //     points
-    //         .transition()
-    //         .delay(function(d) {return d.i*params.speed})
-    //         .attr("r", r)
+        u
+            .transition()
+            .delay(function(d) {return d.i*params.speed})
+            .attr("r", r)
+    }
 
     const legend = d3.select("#legend")
         .append("svg")
@@ -179,7 +179,7 @@ function draw(data, dates, flower) {
                 limit: limit, 
                 play: play, 
                 i: i,
-                speed: 1000
+                speed: 500
             }
 
     drawVis(data, dates, params);
