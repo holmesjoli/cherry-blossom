@@ -49,17 +49,18 @@ Promise.all(promises).then(function (values) {
 function drawVis(data, dates, params) {
 
     let width = window.innerWidth*.8;
-    let height = window.innerHeight*.9;
+    let chartHeight = window.innerHeight*.85;
+    let legendHeight = window.innerHeight*.15;
     const margin = {top: 20, left: 50, right: 10, bottom: 50};
 
     let centuries = uniqueArray(data, "century");
     console.log(centuries);
     let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
 
-    const svg = d3.select(".main")
+    const svg = d3.select("#chart")
         .append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", chartHeight);
 
     // addDivs("wrapper", centuries.length, width -margin.left - margin.right, (height - margin.top - margin.bottom)/13);
 
@@ -70,7 +71,7 @@ function drawVis(data, dates, params) {
 
     const yScale = d3.scaleBand()
         .domain(centuries)
-        .range([height-margin.bottom, margin.top])
+        .range([chartHeight-margin.bottom, margin.top])
         .padding(0.05);
 
     const fillScale = d3.scaleOrdinal()
@@ -87,7 +88,7 @@ function drawVis(data, dates, params) {
     
     const xAxis = svg.append("g")
         .attr("class","axis")
-        .attr("transform", `translate(0,${height-margin.bottom})`)
+        .attr("transform", `translate(0,${chartHeight-margin.bottom})`)
         .call(d3.axisBottom().scale(xScale));
 
     const yAxis = svg.append("g")
@@ -106,19 +107,58 @@ function drawVis(data, dates, params) {
             .attr("fill", function(d) {return sdFillScale(d.sd); })
             .attr("fill-opacity", function(d) {return sdFillOpacity(d.date_is_median); });
 
-    const points = svg.selectAll("circle")
-        .data(data)
-        .enter()
-        .append("circle")
-            .attr("cx", function(d) { return xScale(d.date); })
-            .attr("cy", function(d) { return yScale(d.century); })
-            .attr("r", 0)
-            .attr("fill", function(d) { return fillScale(d.temp_bin);});
+    var simulation = d3.forceSimulation(data)
+        .force('x', d3.forceX().x(function (d) {
+            return xScale(+d.Rating);
+        }).strength(0.1))
+        // .force('y', d3.forceY().y(function (d) {
+        //     return yScale(d.Country_of_Bean_Origin);
+        // }).strength(0.8))
+        .force('y', d3.forceY().y(function (d) {
+            return chartHeight / 2;
+        }).strength(0.8))
+        .force('collision', d3.forceCollide().radius(function (d) { // prevent circle overlap when collide
+            return 5;
+        }).strength(0.8))
+        // .force('charge', d3.forceManyBody().strength(-5)) // send nodes away from eachother
+        .on('tick', ticked);
 
-        points
-            .transition()
-            .delay(function(d) {return d.i*params.speed})
-            .attr("r", 5)
+    function ticked() {
+        // console.log("tick");
+        var u = svg
+            .selectAll('circle')
+            .data(data)
+            .join('circle')
+            .attr('r', 5)
+            .attr('fill', function (d) {
+                return fillScale(d.temp_bin);
+            })
+            .attr('cx', function (d) {
+                return xScale(d.date);
+            })
+            .attr('cy', function (d) {
+                return yScale(d.century);
+            });
+    }
+
+    // const points = svg.selectAll("circle")
+    //     .data(data)
+    //     .enter()
+    //     .append("circle")
+    //         .attr("cx", function(d) { return xScale(d.date); })
+    //         .attr("cy", function(d) { return yScale(d.century); })
+    //         .attr("r", 0)
+    //         .attr("fill", function(d) { return fillScale(d.temp_bin);});
+
+    //     points
+    //         .transition()
+    //         .delay(function(d) {return d.i*params.speed})
+    //         .attr("r", 5)
+
+    const legend = d3.select("#legend")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", legendHeight);
 }
 
 function draw(data, dates, flower) {
