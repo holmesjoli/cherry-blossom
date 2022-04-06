@@ -1,4 +1,32 @@
-function drawVis(data, dates, params) {
+import { uniqueArray } from "./helper_functions.js";
+
+function legend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd) {
+
+    const legend = d3.select("#legend")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", legendHeight);
+
+    sd.forEach(function(d, i) {
+
+        legend
+            .append("rect")
+            .attr("x", margin.left + (xScale.bandwidth()+2)*i)
+            .attr("y", 0)
+            .attr("width", xScale.bandwidth())
+            .attr("height", yScale.bandwidth())
+            .attr("fill", sdFillScale(d))
+            .attr("fill-opacity", .25)
+
+        legend
+            .append("text")
+            .attr("x", margin.left + (xScale.bandwidth())*i + xScale.bandwidth()/2)
+            .attr("y", yScale.bandwidth()/2)
+            .text(d)
+    });
+}
+
+export function drawVis(data, dates, params) {
 
     let width = window.innerWidth*.8;
     let chartHeight = window.innerHeight*.85;
@@ -7,8 +35,8 @@ function drawVis(data, dates, params) {
     const margin = {top: 20, left: 50, right: 10, bottom: 50};
     const r = 5;
 
-    let centuries = Helper.uniqueArray(data, "century");
-    let days = Helper.uniqueArray(dates, "date").sort(function(a, b) {return a - b});
+    let centuries = uniqueArray(data, "century");
+    let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
 
     const svg = d3.select("#chart")
         .append("svg")
@@ -90,26 +118,5 @@ function drawVis(data, dates, params) {
             .attr("r", r)
     }
 
-    const legend = d3.select("#legend")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", legendHeight);
-
-    sd.forEach(function(d, i) {
-
-        legend
-            .append("rect")
-            .attr("x", margin.left + (xScale.bandwidth()+2)*i)
-            .attr("y", 0)
-            .attr("width", xScale.bandwidth())
-            .attr("height", yScale.bandwidth())
-            .attr("fill", sdFillScale(d))
-            .attr("fill-opacity", .25)
-
-        legend
-            .append("text")
-            .attr("x", margin.left + (xScale.bandwidth())*i + xScale.bandwidth()/2)
-            .attr("y", yScale.bandwidth()/2)
-            .text(d)
-    });
+    legend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd);
 }
