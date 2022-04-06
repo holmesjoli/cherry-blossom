@@ -1,4 +1,4 @@
-import * as Helper from "./js/helper_functions.js";
+import * as Helper from "./modules/helper_functions.js";
 
 const files = {
     bloom: {
