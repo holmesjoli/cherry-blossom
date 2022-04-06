@@ -44,8 +44,6 @@ export function drawVis(data, dates, params) {
         .attr("width", width)
         .attr("height", chartHeight);
 
-    // addDivs("wrapper", centuries.length, width -margin.left - margin.right, (height - margin.top - margin.bottom)/13);
-
     const xScale = d3.scaleBand()
         .domain(days)
         .range([margin.left, width-margin.right])
