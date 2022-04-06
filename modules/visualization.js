@@ -1,6 +1,7 @@
 import { uniqueArray } from "./helper_functions.js";
 
-function legend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd) {
+// Title Creates the standard deviations legend
+function sdLegend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd) {
 
     const legend = d3.select("#legend")
         .append("svg")
@@ -88,7 +89,6 @@ export function drawVis(data, dates, params) {
             .attr("fill", function(d) {return sdFillScale(d.sd); })
             .attr("fill-opacity", function(d) {return sdFillOpacity(d.date_is_median); });
 
-    console.log(data);
     var simulation = d3.forceSimulation(data)
         // .force('charge', d3.forceManyBody().strength(0)) // send nodes away from eachother
         .force('center', d3.forceCenter(width / 2, chartHeight / 2)) // pull nodes to a central point
@@ -102,7 +102,7 @@ export function drawVis(data, dates, params) {
         .on('tick', ticked);
 
     function ticked() {
-        // console.log("tick");
+
         var u = svg
             .selectAll('circle')
             .data(data)
@@ -118,5 +118,5 @@ export function drawVis(data, dates, params) {
             .attr("r", r)
     }
 
-    legend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd);
+    sdLegend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd);
 }
