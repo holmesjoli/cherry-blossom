@@ -13,7 +13,7 @@ h1 {
   margin: 0;
   color: #E93C8F;
   font-weight: 300;
-  margin-bottom: 50px;
+  margin: 50px 10px;
 }
 
 p {
@@ -44,7 +44,6 @@ button:hover {
   display: flex;
   flex-direction: column;
   max-width: 15%;
-  text-align: center;
 }
 
 .main {
