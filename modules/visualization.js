@@ -3,7 +3,7 @@ import { uniqueArray } from "./helper_functions.js";
 // Title Creates the standard deviations legend
 function sdLegend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd) {
 
-    const legend = d3.select("#legend")
+    const legend = d3.select("#sd-legend")
         .append("svg")
         .attr("width", width)
         .attr("height", legendHeight);
@@ -27,12 +27,38 @@ function sdLegend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd) 
     });
 }
 
+// Title Creates the temperature legend
+function colorLegend(width, legendHeight, margin, fillScale, temp, r) {
+
+    const legend = d3.select("#color-legend")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", legendHeight);
+
+    temp.forEach(function(d, i) {
+
+        legend
+            .append("circle")
+            .attr("cx", 10 + 50*i)
+            .attr("cy", 15)
+            .attr("r", 10)
+            .attr("fill", fillScale(d))
+
+        legend
+            .append("text")
+            .attr("x", 10 + 50*i)
+            .attr("y", 40)
+            .text(d)
+    });
+}
+
 export function drawVis(data, dates, params) {
 
     let width = window.innerWidth*.8;
     let chartHeight = window.innerHeight*.85;
     let legendHeight = window.innerHeight*.15;
     const sd = ["1", "2", "3"];
+    const temp = [">=9", ">=6 & <9", ">=3 & <6", "<3"];
     const margin = {top: 20, left: 50, right: 10, bottom: 50};
     const r = 5;
 
@@ -55,7 +81,7 @@ export function drawVis(data, dates, params) {
         .padding(0.05);
 
     const fillScale = d3.scaleOrdinal()
-        .domain([">=9", ">=6 & <9", ">=3 & <6", "<3"])
+        .domain(temp)
         .range(["#ED0A7E", "#F17098", "#F7ACB4", "#FEE5D4"]);
 
     const sdFillScale = d3.scaleOrdinal()
@@ -116,5 +142,6 @@ export function drawVis(data, dates, params) {
             .attr("r", r)
     }
 
-    sdLegend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd);
+    sdLegend(width*.5, legendHeight, margin, xScale, yScale, sdFillScale, sd);
+    colorLegend(width*.5, legendHeight, margin, fillScale, temp, r);
 }
