@@ -9,6 +9,8 @@ function read(pth, parse, promises) {
         promises.push(d3.csv(pth, parse));
     } else if (ext === "json" || ext === "geojson") {
         promises.push(d3.json(pth, parse));
+    } else if (ext === "svg") {
+        promises.push(d3.xml(pth, parse));
     } else {
         console.error("unknown file extension");
     }

@@ -27,7 +27,11 @@ const files = {
                 sd: j.sd,
                 date_is_median: j.date_is_median
             }
-        },
+        }
+    },
+    flower: {
+        pth: "./svg/flower.svg",
+        parse: null
     }
 };
 
@@ -39,7 +43,7 @@ for (var key of Object.keys(files)) {
 }
 
 Promise.all(promises).then(function (values) {
-    draw(values[0], values[1])
+    draw(values[0], values[1], values[2]);
 });
 
 function drawVis(data, dates, params) {
@@ -117,10 +121,11 @@ function drawVis(data, dates, params) {
             .attr("r", 5)
 }
 
-function draw(data, dates) {
+function draw(data, dates, flower) {
 
     console.log(data);
     console.log(dates);
+    console.log(flower);
     
     let start = d3.min(dates, function(d) {return +d.i});
     let limit = d3.max(dates, function(d) {return +d.i});
