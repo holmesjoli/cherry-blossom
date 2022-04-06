@@ -147,28 +147,28 @@ function drawVis(data, dates, params) {
     //         .delay(function(d) {return d.i*params.speed})
     //         .attr("r", r)
 
-    // const legend = d3.select("#legend")
-    //     .append("svg")
-    //     .attr("width", width)
-    //     .attr("height", legendHeight);
+    const legend = d3.select("#legend")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", legendHeight);
 
-    // sd.forEach(function(d, i) {
+    sd.forEach(function(d, i) {
 
-    //     legend
-    //         .append("rect")
-    //         .attr("x", margin.left + (xScale.bandwidth()+2)*i)
-    //         .attr("y", 20)
-    //         .attr("width", xScale.bandwidth())
-    //         .attr("height", yScale.bandwidth())
-    //         .attr("fill", sdFillScale(d))
-    //         .attr("fill-opacity", .25)
+        legend
+            .append("rect")
+            .attr("x", margin.left + (xScale.bandwidth()+2)*i)
+            .attr("y", 20)
+            .attr("width", xScale.bandwidth())
+            .attr("height", yScale.bandwidth())
+            .attr("fill", sdFillScale(d))
+            .attr("fill-opacity", .25)
 
-    //     legend
-    //         .append("text")
-    //         .attr("x", margin.left + (xScale.bandwidth())*i + xScale.bandwidth()/2)
-    //         .attr("y", 20)
-    //         .text(d)
-    // });
+        legend
+            .append("text")
+            .attr("x", margin.left + (xScale.bandwidth())*i + xScale.bandwidth()/2)
+            .attr("y", 20)
+            .text(d)
+    });
 
 }
 
