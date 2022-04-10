@@ -86,7 +86,6 @@ button:hover {
   flex-direction: row;
 }
 
-#sd-legend,
-#color-legend {
-  max-width: 50%;
+.legend {
+  max-width: 25%;
 }
