@@ -92,15 +92,15 @@ export function drawVis(data, dates, params) {
         .domain(["TRUE", "FALSE"])
         .range([.7, .3]);
     
-    // const xAxis = svg.append("g")
-    //     .attr("class","axis")
-    //     .attr("transform", `translate(0,${chartHeight-margin.bottom})`)
-    //     .call(d3.axisBottom().scale(xScale));
+    const xAxis = svg.append("g")
+        .attr("class","axis")
+        .attr("transform", `translate(0,${chartHeight-margin.bottom})`)
+        .call(d3.axisBottom().scale(xScale));
 
-    // const yAxis = svg.append("g")
-    //     .attr("class","axis")
-    //     .attr("transform", `translate(${margin.left},0)`)
-    //     .call(d3.axisLeft().scale(yScale));
+    const yAxis = svg.append("g")
+        .attr("class","axis")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(d3.axisLeft().scale(yScale));
 
     const bars = svg.selectAll("rect")
         .data(dates)
@@ -135,9 +135,10 @@ export function drawVis(data, dates, params) {
 
     function ticked(event) {
 
-        svg.append("g")
+        // svg.append("g")
 
-        svg.select('g')
+        svg
+            // .select('g')
             .selectAll('path')
             .data(pointsData)
             .join('path')
