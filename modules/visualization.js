@@ -133,12 +133,11 @@ export function drawVis(data, dates, params) {
     
     let pathGen = "M12.41,15.53c-.47,17.23,18.76,3.36,2.6-2.12,16.41,6.3,8.57-17.41-1.03-2.82-.09-.09-.15-.15-.27-.21C25.32-2.53-.01-3.71,10.83,10.36,.8-3.52-6.29,19.62,9.59,13.35c0,.09,.03,.18,.06,.24-16.6,4.37,3.05,19.08,2.54,1.94h.21Z"
 
-    function ticked(event) {
+    let simPoints = []
 
-        // svg.append("g")
+    function ticked() {
 
         var u = svg
-            // .select('g')
             .selectAll('path')
             .data(pointsData)
             .join('path')
@@ -151,14 +150,14 @@ export function drawVis(data, dates, params) {
             .attr('d', pathGen)
             .attr("opacity", 0);
 
-        // var t = svg
-        //     .selectAll('circle')
-        //     .data(data)
-        //     .join('circle')
-        //     .attr('r', 0)
-        //     .attr("fill", function(d) { return fillScale(d.temp_bin); })
-        //     .attr('cx', function (d) { return d.x; })
-        //     .attr('cy', function (d) { return d.y - margin.bottom; });
+        var t = svg
+            .selectAll('circle')
+            .data(data)
+            .join('circle')
+            .attr('r', 1)
+            .attr("fill", function(d) { return fillScale(d.temp_bin); })
+            .attr('cx', function (d) { return d.x; })
+            .attr('cy', function (d) { return d.y - margin.bottom; });
 
         u
             .transition()

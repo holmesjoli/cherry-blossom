@@ -14,7 +14,7 @@ const files = {
                 temp_bin: j.temp_bin,
                 date_as_date: j.date_as_date,
                 i: +j.i,
-                temp_class: j.temp_class
+                id: +j.id
             }
         },
     },
