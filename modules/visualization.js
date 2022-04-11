@@ -131,15 +131,15 @@ export function drawVis(data, dates, params) {
             .selectAll('circle')
             .data(data)
             .join('circle')
-            .attr('r', 0)
+            .attr('r', r)
             .attr("fill", function(d) { return fillScale(d.temp_bin); })
             .attr('cx', function (d) { return d.x; })
             .attr('cy', function (d) { return d.y - margin.bottom; });
 
-        u
-            .transition()
-            .delay(function(d) {return d.i*params.speed})
-            .attr("r", r)
+        // u
+        //     .transition()
+        //     .delay(function(d) {return d.i*params.speed})
+        //     .attr("r", r)
     }
 
     sdLegend(width*.5, legendHeight, margin, xScale, yScale, sdFillScale, sd);
