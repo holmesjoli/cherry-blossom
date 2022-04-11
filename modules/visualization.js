@@ -137,12 +137,21 @@ export function drawVis(data, dates, params) {
 
     function ticked() {
 
+        var t = svg
+            .selectAll('circle')
+            .data(data)
+            .join('circle')
+            .attr('r', 1)
+            .attr("fill", function(d) { return fillScale(d.temp_bin); })
+            .attr('cx', function (d) { simPoints.push(d.x, d.y); return d.x; })
+            .attr('cy', function (d) { return d.y - margin.bottom; });
+
         var u = svg
             .selectAll('path')
             .data(pointsData)
             .join('path')
             .attr("fill", function(d, i) {
-                return fillScale(data[i].temp_class);
+                return fillScale(data[i].temp_bin);
             })
             .attr('transform', function(d) {
                 return 'translate(' + d + ')';
@@ -150,21 +159,13 @@ export function drawVis(data, dates, params) {
             .attr('d', pathGen)
             .attr("opacity", 0);
 
-        var t = svg
-            .selectAll('circle')
-            .data(data)
-            .join('circle')
-            .attr('r', 1)
-            .attr("fill", function(d) { return fillScale(d.temp_bin); })
-            .attr('cx', function (d) { return d.x; })
-            .attr('cy', function (d) { return d.y - margin.bottom; });
-
         u
             .transition()
             .delay(function(d, i) {return data[i].i*params.speed})
             .attr("opacity", 1)
-
     }
+
+    console.log(simPoints)
 
     sdLegend(width*.5, legendHeight, margin, xScale, yScale, sdFillScale, sd);
     colorLegend(width*.5, legendHeight, margin, fillScale, temp, r);
