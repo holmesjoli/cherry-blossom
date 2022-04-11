@@ -119,7 +119,7 @@ export function drawVis(data, dates, params) {
         pointsData.push([+xScale(d.date), +yScale(d.century)])
     })
 
-    var simulation = d3.forceSimulation(pointsData)
+    var simulation = d3.forceSimulation(data)
         // .force('charge', d3.forceManyBody().strength(0)) // send nodes away from eachother
         .force('center', d3.forceCenter(width / 2, chartHeight / 2)) // pull nodes to a central point
         .force('x', d3.forceX().x(function (d) {
@@ -148,9 +148,10 @@ export function drawVis(data, dates, params) {
             .attr('transform', function(d) {
                 return 'translate(' + d + ')';
             })
-            .attr('d', pathGen);
+            .attr('d', pathGen)
+            .attr("opacity", 0);
 
-        // var u = svg
+        // var t = svg
         //     .selectAll('circle')
         //     .data(data)
         //     .join('circle')
@@ -159,10 +160,10 @@ export function drawVis(data, dates, params) {
         //     .attr('cx', function (d) { return d.x; })
         //     .attr('cy', function (d) { return d.y - margin.bottom; });
 
-        // u
-        //     .transition()
-        //     .delay(function(d) {return d.i*params.speed})
-        //     .attr("r", r)
+        u
+            .transition()
+            .delay(function(d, i) {return data[i].i*params.speed})
+            .attr("opacity", 1)
 
     }
 
