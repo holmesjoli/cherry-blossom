@@ -164,14 +164,6 @@ export function drawVis(data, dates, params) {
         //     .delay(function(d) {return d.i*params.speed})
         //     .attr("r", r)
 
-        // svg.select('g')
-        //     .selectAll('path')
-        //     .data(data)
-        //     .join('path')
-        //     .attr('transform', function(d) {
-        //         return 'translate(' + d + ')';
-        //     })
-        //     .attr('d',pathGen);
     }
 
     sdLegend(width*.5, legendHeight, margin, xScale, yScale, sdFillScale, sd);
