@@ -89,3 +89,17 @@ button:hover {
 .legend {
   max-width: 25%;
 }
+
+.gte9 {
+  fill: #E93C8F;
+}
+.gte6-and-lt9{ 
+
+  fill: #F17098;
+}
+.gte3-and-lt6{ 
+  fill: #F7ACB4;
+}
+.lt3{ 
+  fill: #FEE5D4;
+}

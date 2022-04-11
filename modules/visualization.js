@@ -92,15 +92,15 @@ export function drawVis(data, dates, params) {
         .domain(["TRUE", "FALSE"])
         .range([.7, .3]);
     
-    const xAxis = svg.append("g")
-        .attr("class","axis")
-        .attr("transform", `translate(0,${chartHeight-margin.bottom})`)
-        .call(d3.axisBottom().scale(xScale));
+    // const xAxis = svg.append("g")
+    //     .attr("class","axis")
+    //     .attr("transform", `translate(0,${chartHeight-margin.bottom})`)
+    //     .call(d3.axisBottom().scale(xScale));
 
-    const yAxis = svg.append("g")
-        .attr("class","axis")
-        .attr("transform", `translate(${margin.left},0)`)
-        .call(d3.axisLeft().scale(yScale));
+    // const yAxis = svg.append("g")
+    //     .attr("class","axis")
+    //     .attr("transform", `translate(${margin.left},0)`)
+    //     .call(d3.axisLeft().scale(yScale));
 
     const bars = svg.selectAll("rect")
         .data(dates)
@@ -113,7 +113,13 @@ export function drawVis(data, dates, params) {
             .attr("fill", function(d) {return sdFillScale(d.sd); })
             .attr("fill-opacity", function(d) {return sdFillOpacity(d.date_is_median); });
 
-    var simulation = d3.forceSimulation(data)
+    let pointsData = []
+
+    data.forEach(function(d) {
+        pointsData.push([+xScale(d.date), +yScale(d.century)])
+    })
+
+    var simulation = d3.forceSimulation(pointsData)
         // .force('charge', d3.forceManyBody().strength(0)) // send nodes away from eachother
         .force('center', d3.forceCenter(width / 2, chartHeight / 2)) // pull nodes to a central point
         .force('x', d3.forceX().x(function (d) {
@@ -124,22 +130,47 @@ export function drawVis(data, dates, params) {
         }).strength(.1))
         .force('collision', d3.forceCollide().radius(r).strength(1))
         .on('tick', ticked);
+    
+    let pathGen = "M12.41,15.53c-.47,17.23,18.76,3.36,2.6-2.12,16.41,6.3,8.57-17.41-1.03-2.82-.09-.09-.15-.15-.27-.21C25.32-2.53-.01-3.71,10.83,10.36,.8-3.52-6.29,19.62,9.59,13.35c0,.09,.03,.18,.06,.24-16.6,4.37,3.05,19.08,2.54,1.94h.21Z"
 
-    function ticked() {
+    function ticked(event) {
 
-        var u = svg
-            .selectAll('circle')
-            .data(data)
-            .join('circle')
-            .attr('r', 0)
-            .attr("fill", function(d) { return fillScale(d.temp_bin); })
-            .attr('cx', function (d) { return d.x; })
-            .attr('cy', function (d) { return d.y - margin.bottom; });
+        svg.append("g")
 
-        u
-            .transition()
-            .delay(function(d) {return d.i*params.speed})
-            .attr("r", r)
+        svg.select('g')
+            .selectAll('path')
+            .data(pointsData)
+            .join('path')
+            .attr("class", function(d, i) {
+                return data[i].temp_class;
+            })
+            .attr('transform', function(d) {
+                return 'translate(' + d + ')';
+            })
+            .attr('d', pathGen);
+
+        // var u = svg
+        //     .selectAll('circle')
+        //     .data(data)
+        //     .join('circle')
+        //     .attr('r', 0)
+        //     .attr("fill", function(d) { return fillScale(d.temp_bin); })
+        //     .attr('cx', function (d) { return d.x; })
+        //     .attr('cy', function (d) { return d.y - margin.bottom; });
+
+        // u
+        //     .transition()
+        //     .delay(function(d) {return d.i*params.speed})
+        //     .attr("r", r)
+
+        // svg.select('g')
+        //     .selectAll('path')
+        //     .data(data)
+        //     .join('path')
+        //     .attr('transform', function(d) {
+        //         return 'translate(' + d + ')';
+        //     })
+        //     .attr('d',pathGen);
     }
 
     sdLegend(width*.5, legendHeight, margin, xScale, yScale, sdFillScale, sd);
