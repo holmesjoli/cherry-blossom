@@ -137,13 +137,13 @@ export function drawVis(data, dates, params) {
 
         // svg.append("g")
 
-        svg
+        var u = svg
             // .select('g')
             .selectAll('path')
             .data(pointsData)
             .join('path')
-            .attr("class", function(d, i) {
-                return data[i].temp_class;
+            .attr("fill", function(d, i) {
+                return fillScale(data[i].temp_class);
             })
             .attr('transform', function(d) {
                 return 'translate(' + d + ')';
