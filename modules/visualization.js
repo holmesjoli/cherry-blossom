@@ -22,8 +22,8 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
 
         legend
             .append("rect")
-            .attr("y", margin + spacing*2*i)
-            .attr("x", 15)
+            .attr("y", margin)
+            .attr("x", 15 + spacing*2*i)
             .attr("width", xScale.bandwidth()*2.5)
             .attr("height", yScale.bandwidth()*2.5)
             .attr("fill", sdFillScale(d))
@@ -31,8 +31,8 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
 
         legend
             .append("text")
-            .attr("y", margin + spacing*2*i + yScale.bandwidth()*2.5/2)
-            .attr("x", 15 + xScale.bandwidth()*2.5/2)
+            .attr("y", margin + yScale.bandwidth()*2.5/2)
+            .attr("x", 15 + spacing*2*i + xScale.bandwidth()*2.5/2)
             .attr("text-anchor", "middle")
             .text(d);
     });
@@ -40,7 +40,7 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
     legend
         .append("text")
         .attr("class", "legend--title")
-        .attr("y", margin - 30)
+        .attr("y", margin - 20)
         .attr("x", 5)
         .text("Standard Deviation");
 }
