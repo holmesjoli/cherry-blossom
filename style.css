@@ -130,6 +130,21 @@ button:hover {
   border-radius: 10px;
 }
 
+h1:before{
+  content: 'Bloom';
+  font-size: 100%;
+  font-weight: 800;
+  animation-name: head;
+  animation-duration: 10s;
+}
+
+@keyframes head {
+  0% {font-size:1%; font-weight: 100}
+  45% {font-size:90%; font-weight: 700}
+  100% {font-size:100%; font-weight: 800;}
+}
+
+
 /* MEDIA QUERIES */
 
 @media only screen and (max-width: 700px) {
