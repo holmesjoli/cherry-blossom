@@ -30,7 +30,7 @@ function sdLegend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd) 
 // Title Creates the temperature legend
 function colorLegend(width, legendHeight, margin, fillScale, temp, r) {
 
-    const legend = d3.select("#color-legend")
+    const legend = d3.select("#legend")
         .append("svg")
         .attr("width", width)
         .attr("height", legendHeight);
@@ -39,15 +39,15 @@ function colorLegend(width, legendHeight, margin, fillScale, temp, r) {
 
         legend
             .append("circle")
-            .attr("cx", 10 + 50*i)
-            .attr("cy", 15)
+            .attr("cy", margin.top + 50*i)
+            .attr("cx", 15)
             .attr("r", 10)
             .attr("fill", fillScale(d))
 
         legend
             .append("text")
-            .attr("x", 10 + 50*i)
-            .attr("y", 40)
+            .attr("y", margin.top + 50*i)
+            .attr("x", 40)
             .text(d)
     });
 }
@@ -78,7 +78,7 @@ export function drawVis(data, dates, params) {
     const margin = {top: 20, left: 50, right: 10, bottom: 50};
     const innerWidth = width - margin.left - margin.right;
     const xWidth = innerWidth/39;
-    const r = 5;
+    const r = 2;
     const padding = .05;
 
     let centuries = uniqueArray(data, "century");
@@ -96,10 +96,13 @@ export function drawVis(data, dates, params) {
         .range([margin.left, width-margin.right])
         .padding(padding);
 
+    // console.log(centuries);
     const yScale = d3.scaleBand()
         .domain(centuries)
         .range([height-margin.bottom, margin.top])
         .padding(padding);
+
+    console.log(yScale(21))
 
     const fillScale = d3.scaleOrdinal()
         .domain(temp)
@@ -160,61 +163,59 @@ export function drawVis(data, dates, params) {
             .attr("fill", function(d) {return sdFillScale(d.sd); })
             .attr("fill-opacity", function(d) {return sdFillOpacity(d.date_is_median); });
 
-    // var simulation = d3.forceSimulation(data)
-    //     // .force('charge', d3.forceManyBody().strength(0)) // send nodes away from eachother
-    //     .force('center', d3.forceCenter(width / 2, height / 2)) // pull nodes to a central point
-    //     .force('x', d3.forceX().x(function (d) {
-    //         return xScale(+d.date);
-    //     }).strength(.1))
-    //     .force('y', d3.forceY().y(function (d) {
-    //         return yScale(+d.century);
-    //     }).strength(.1))
-    //     .force('collision', d3.forceCollide().radius(r).strength(1))
-    //     .on('tick', ticked);
+    var simulation = d3.forceSimulation(data)
+        .force('x', d3.forceX().x(function (d) {
+            return xScale(+d.date);
+        }).strength(.1))
+        .force('y', d3.forceY().y(function (d) {
+            return yScale(+d.century);
+        }).strength(.1))
+        .force('collision', d3.forceCollide().radius(r).strength(1))
+        .on('tick', ticked);
 
-    // var tooltip = d3.select("#chart")
-    // .append("div")
-    // .attr("class", "tooltip");
+    var tooltip = d3.select("#chart")
+    .append("div")
+    .attr("class", "tooltip");
 
-    // function ticked() {
+    function ticked() {
 
-    //     var u = svg
-    //         .selectAll('circle')
-    //         .data(data)
-    //         .join('circle')
-    //         .attr('class', function(d) { return d.data_type_code.replace(/\s/g, '')})
-    //         .attr('r', r)
-    //         .attr("fill", function(d) { return fillScale(d.temp_bin); })
-    //         .attr('cx', function (d) { return d.x; })
-    //         .attr('cy', function (d) { return d.y - yScale.bandwidth(); })
+        var u = svg
+            .selectAll('circle')
+            .data(data)
+            .join('circle')
+            .attr('class', function(d) { return d.data_type_code.replace(/\s/g, '')})
+            .attr('r', r)
+            .attr("fill", function(d) { return fillScale(d.temp_bin); })
+            .attr('cx', function (d) { return d.x + xScale.bandwidth()/2; })
+            .attr('cy', function (d) { return d.y + yScale.bandwidth()/2; })
     
-    //         u.on('mouseover', function (event, d) {
+            u.on('mouseover', function (event, d) {
 
-    //             tooltip.style("visibility", "visible")
-    //                 .style("left", event.offsetX + "px")
-    //                 .style("top", event.offsetY + "px")
-    //                 .html(`Data collection type: ${d.data_type_code}`);
+                tooltip.style("visibility", "visible")
+                    .style("left", event.offsetX + "px")
+                    .style("top", event.offsetY + "px")
+                    .html(`Data collection type: ${d.data_type_code}`);
 
-    //             let type = d.data_type_code.replace(/\s/g, '');
+                let type = d.data_type_code.replace(/\s/g, '');
 
-    //             let sameType =  d3.selectAll("." + type)
+                let sameType =  d3.selectAll("." + type)
 
-    //             u.attr("opacity", 0.25);
-    //             sameType.attr("opacity", 1).raise()
+                u.attr("opacity", 0.25);
+                sameType.attr("opacity", 1).raise()
 
-    //             d3.select(this).attr("r", r*2).attr("stroke", "#FFFFFF").attr("stroke-width", 3)
+                d3.select(this).attr("r", r*2).attr("stroke", "#FFFFFF").attr("stroke-width", 3)
 
-    //         }).on('mouseout', function (event, d) {
-    //             tooltip.style("visibility", "hidden")
-    //             u.attr("opacity", 1);
-    //             d3.selectAll('circle').attr("r", r).attr("stroke", null)
-    //         });
+            }).on('mouseout', function (event, d) {
+                tooltip.style("visibility", "hidden")
+                u.attr("opacity", 1);
+                d3.selectAll('circle').attr("r", r).attr("stroke", null)
+            });
 
-    //     // u
-    //     //     .transition()
-    //     //     .delay(function(d) {return d.i*params.speed})
-    //     //     .attr("r", r)
-    // }
+        // u
+        //     .transition()
+        //     .delay(function(d) {return d.i*params.speed})
+        //     .attr("r", r)
+    }
 
     sdLegend(width*.5, height, margin, xScale, yScale, sdFillScale, sd);
     colorLegend(width*.5, height, margin, fillScale, temp, r);
