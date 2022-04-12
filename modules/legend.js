@@ -5,7 +5,7 @@ function colorLegend(margin, width, height, spacing, fillScale, temp, r) {
         .domain(temp)
         .range(["greater than 48˚F (9˚C)", "less than 37˚F (3˚C)", "between 37˚F (3˚C) and 43˚F (6˚C)", "between 43˚F (6˚C) and 48˚F (9˚C)"]);
 
-    const legend = d3.select("#legend--temp")
+    const legend = d3.select("#legend")
         .append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
@@ -37,7 +37,7 @@ function colorLegend(margin, width, height, spacing, fillScale, temp, r) {
 // Title Creates the standard deviations legend
 function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, sd) {
 
-    const legend = d3.select("#legend--sd")
+    const legend = d3.select("#legend")
         .append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
@@ -72,7 +72,7 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
 // Title Creates the median
 function medianLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, sd) {
 
-    const legend = d3.select("#legend--sd")
+    const legend = d3.select("#legend")
         .append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
@@ -101,6 +101,9 @@ function medianLegend(margin, width, height, spacing, xScale, yScale, sdFillScal
         .text("Median");
 }
 
+
+//Title Draw Legend
+// Draws all of the legends
 export function drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r) {
     const width = 300;
     const height = 200;
@@ -109,5 +112,5 @@ export function drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r) 
 
     colorLegend(margin, width, height, spacing, fillScale, temp, r);
     sdLegend(margin, width, 150, spacing, xScale, yScale, sdFillScale, sd);
-    medianLegend(75, width, 150, spacing, xScale, yScale, sdFillScale, sd);
+    medianLegend(margin, width, 150, spacing, xScale, yScale, sdFillScale, sd);
 }
