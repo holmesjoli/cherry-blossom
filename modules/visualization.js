@@ -54,12 +54,12 @@ function colorLegend(width, legendHeight, margin, fillScale, temp, r) {
 
 export function drawVis(data, dates, params) {
 
-    let width = window.innerWidth*.8;
-    let chartHeight = window.innerHeight*.9;
-    let legendHeight = window.innerHeight*.10;
+    const width = 500;
+    const height = 300;
+
     const sd = ["1", "2", "3"];
     const temp = [">=9", ">=6 & <9", ">=3 & <6", "<3"];
-    const margin = {top: 20, left: 0, right: 0, bottom: 50};
+    const margin = {top: 20, left: 50, right: 10, bottom: 50};
     const r = 5;
 
     let centuries = uniqueArray(data, "century");
@@ -67,8 +67,8 @@ export function drawVis(data, dates, params) {
 
     const svg = d3.select("#chart")
         .append("svg")
-        .attr("width", width)
-        .attr("height", chartHeight);
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("preserveAspectRatio", "xMidYMid meet");
 
     const xScale = d3.scaleBand()
         .domain(days)
@@ -77,7 +77,7 @@ export function drawVis(data, dates, params) {
 
     const yScale = d3.scaleBand()
         .domain(centuries)
-        .range([chartHeight-margin.bottom, margin.top])
+        .range([height-margin.bottom, margin.top])
         .padding(0.05);
 
     const fillScale = d3.scaleOrdinal()
@@ -94,7 +94,7 @@ export function drawVis(data, dates, params) {
     
     const xAxis = svg.append("g")
         .attr("class","axis")
-        .attr("transform", `translate(0,${chartHeight-margin.bottom})`)
+        .attr("transform", `translate(0,${height-margin.bottom})`)
         .call(d3.axisBottom().scale(xScale));
 
     const yAxis = svg.append("g")
@@ -115,7 +115,7 @@ export function drawVis(data, dates, params) {
 
     // var simulation = d3.forceSimulation(data)
     //     // .force('charge', d3.forceManyBody().strength(0)) // send nodes away from eachother
-    //     .force('center', d3.forceCenter(width / 2, chartHeight / 2)) // pull nodes to a central point
+    //     .force('center', d3.forceCenter(width / 2, height / 2)) // pull nodes to a central point
     //     .force('x', d3.forceX().x(function (d) {
     //         return xScale(+d.date);
     //     }).strength(.1))
@@ -169,6 +169,6 @@ export function drawVis(data, dates, params) {
     //     //     .attr("r", r)
     // }
 
-    sdLegend(width*.5, legendHeight, margin, xScale, yScale, sdFillScale, sd);
-    colorLegend(width*.5, legendHeight, margin, fillScale, temp, r);
+    // sdLegend(width*.5, legendHeight, margin, xScale, yScale, sdFillScale, sd);
+    // colorLegend(width*.5, legendHeight, margin, fillScale, temp, r);
 }
