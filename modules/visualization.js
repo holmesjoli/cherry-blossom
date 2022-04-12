@@ -129,27 +129,6 @@ export function drawVis(data, dates, params) {
     .append("div")
     .attr("class", "tooltip");
 
-    
-    // u.on("mouseover", function(e, d) {
-
-    //     let x = +d3.select(this).attr("cx") + 20;
-    //     let y = +d3.select(this).attr("cy") - 10;
-
-    //     tooltip.style("visibility", "visible")
-    //         .style("top", `${y}px`)
-    //         .style("left", `${x}px`)
-    //         .html(`<b>Country of origin: ${d.Country_of_Bean_Origin}</b><br>Rating: ${d.Rating} <br>Cocoa: ${d.Cocoa_Percent*100}%`);
-
-    //     // Optionally, visually highlight the selected circle
-    //     u.attr("opacity", 0.5);
-    //     d3.select(this).attr("opacity", 1).raise();
-
-    // }).on("mouseout", function() {
-    //     // Reset tooltip and circles back to original appearance
-    //     tooltip.style("visibility", "hidden");
-    //     u.attr("opacity", 1);
-    // });
-
     function ticked() {
 
         var u = svg
