@@ -4,7 +4,7 @@
 
 html, body {
   text-align: center;
-  font-family: proxima-nova,sans-serif;
+  font-family: proxima-nova, sans-serif;
   font-weight: 400;
   font-style: normal;
   line-height: 1;
@@ -120,19 +120,33 @@ button:hover {
 }
 /* MEDIA QUERIES */
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 700px) {
+
+  h1 {
+    margin: 20px 10px;
+  }
 
   #chart--container {
     flex-direction: column;
+  }
 
+  #sidebar {
+    flex-direction: row;
+    width: 100%;
+    margin-top: 10px;
   }
 
   #chart {
     width: 100%;
   }
 
-  #legend h2 {
-    flex: 1 0 100%;
+  #timer {
+    min-width: 75px;
+    min-height: 75px;
+    max-width: 100px;
+    max-height: 100px;
+    font-size: 12pt;
+    margin: 15px;
   }
 
   #legend {
