@@ -1,5 +1,19 @@
 import { uniqueArray } from "./helper_functions.js";
 
+function legend(margin, fillScale, temp, r) {
+    const legendWidth = 300;
+    const legendHeight = 200;
+    const legendMargin = 25;
+    const legendSpacing = 50;
+
+    const legend = d3.select("#legend")
+        .append("svg")
+        .attr("viewBox", `0 0 ${legendWidth} ${legendHeight}`)
+        .attr("preserveAspectRatio", "xMidYMid meet");
+
+    colorLegend(legend, margin, fillScale, temp, r);
+}
+
 // Title Creates the standard deviations legend
 function sdLegend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd) {
 
@@ -28,12 +42,11 @@ function sdLegend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd) 
 }
 
 // Title Creates the temperature legend
-function colorLegend(width, legendHeight, margin, fillScale, temp, r) {
+function colorLegend(legend, margin, fillScale, temp, r) {
 
-    const legend = d3.select("#legend")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", legendHeight);
+    let textScale = d3.scaleOrdinal()
+        .domain(temp)
+        .range(["greater than 48˚F (9˚C)", "less than 37˚F (3˚C)", "between 37˚F (3˚C) and 43˚F (6˚C)", "between 43˚F (6˚C) and 48˚F (9˚C)"])
 
     temp.forEach(function(d, i) {
 
@@ -41,14 +54,14 @@ function colorLegend(width, legendHeight, margin, fillScale, temp, r) {
             .append("circle")
             .attr("cy", margin.top + 50*i)
             .attr("cx", 15)
-            .attr("r", 10)
+            .attr("r", r*4)
             .attr("fill", fillScale(d))
 
         legend
             .append("text")
             .attr("y", margin.top + 50*i)
             .attr("x", 40)
-            .text(d)
+            .text(textScale(d))
     });
 }
 
@@ -217,6 +230,5 @@ export function drawVis(data, dates, params) {
         //     .attr("r", r)
     }
 
-    sdLegend(width*.5, height, margin, xScale, yScale, sdFillScale, sd);
-    colorLegend(width*.5, height, margin, fillScale, temp, r);
+    legend(margin, fillScale, temp, r)
 }
