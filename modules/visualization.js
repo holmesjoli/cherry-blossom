@@ -109,7 +109,6 @@ export function drawVis(data, dates, params) {
         .range([margin.left, width-margin.right])
         .padding(padding);
 
-    // console.log(centuries);
     const yScale = d3.scaleBand()
         .domain(centuries)
         .range([height-margin.bottom, margin.top])
@@ -196,12 +195,12 @@ export function drawVis(data, dates, params) {
             .selectAll('circle')
             .data(data)
             .join('circle')
-            .attr('class', function(d) { return d.data_type_code.replace(/\s/g, '')})
+            .attr('class', function(d) {return d.data_type_code.replace(/\s/g, '')})
             .attr('r', r)
             .attr("fill", function(d) { return fillScale(d.temp_bin); })
             .attr('cx', function (d) { return d.x + xScale.bandwidth()/2; })
             .attr('cy', function (d) { return d.y + yScale.bandwidth()/2; })
-    
+
             u.on('mouseover', function (event, d) {
 
                 tooltip.style("visibility", "visible")
@@ -211,17 +210,17 @@ export function drawVis(data, dates, params) {
 
                 let type = d.data_type_code.replace(/\s/g, '');
 
-                let sameType =  d3.selectAll("." + type)
+                let sameType = d3.selectAll("." + type)
 
                 u.attr("opacity", 0.25);
                 sameType.attr("opacity", 1).raise()
 
-                d3.select(this).attr("r", r*2).attr("stroke", "#FFFFFF").attr("stroke-width", 3)
+                d3.select(this).attr("stroke", "#FFFFFF").attr("stroke-width", 1)
 
             }).on('mouseout', function (event, d) {
                 tooltip.style("visibility", "hidden")
                 u.attr("opacity", 1);
-                d3.selectAll('circle').attr("r", r).attr("stroke", null)
+                d3.selectAll('circle').attr("stroke", null)
             });
 
         // u
