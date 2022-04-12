@@ -129,30 +129,60 @@ export function drawVis(data, dates, params) {
     .append("div")
     .attr("class", "tooltip");
 
+    
+    // u.on("mouseover", function(e, d) {
+
+    //     let x = +d3.select(this).attr("cx") + 20;
+    //     let y = +d3.select(this).attr("cy") - 10;
+
+    //     tooltip.style("visibility", "visible")
+    //         .style("top", `${y}px`)
+    //         .style("left", `${x}px`)
+    //         .html(`<b>Country of origin: ${d.Country_of_Bean_Origin}</b><br>Rating: ${d.Rating} <br>Cocoa: ${d.Cocoa_Percent*100}%`);
+
+    //     // Optionally, visually highlight the selected circle
+    //     u.attr("opacity", 0.5);
+    //     d3.select(this).attr("opacity", 1).raise();
+
+    // }).on("mouseout", function() {
+    //     // Reset tooltip and circles back to original appearance
+    //     tooltip.style("visibility", "hidden");
+    //     u.attr("opacity", 1);
+    // });
+
     function ticked() {
 
         var u = svg
             .selectAll('circle')
             .data(data)
             .join('circle')
+            .attr('class', function(d) { return d.data_type_code.replace(/\s/g, '')})
             .attr('r', r)
             .attr("fill", function(d) { return fillScale(d.temp_bin); })
             .attr('cx', function (d) { return d.x; })
             .attr('cy', function (d) { return d.y - margin.bottom; })
-            .on('mouseover', function (event, d) {
+    
+            u.on('mouseover', function (event, d) {
 
                 tooltip.style("visibility", "visible")
                     .style("left", event.offsetX + "px")
                     .style("top", event.offsetY + "px")
-                    .html(`${d.temp_bin}`);
+                    .html(`Data collection type: ${d.data_type_code}`);
 
-                d3.select(this).attr("stroke", "#000000").attr("stroke-width", 3)
+                let type = d.data_type_code.replace(/\s/g, '');
+
+                let sameType =  d3.selectAll("." + type)
+
+                u.attr("opacity", 0.25);
+                sameType.attr("opacity", 1).raise()
+
+                d3.select(this).attr("r", r*2).attr("stroke", "#FFFFFF").attr("stroke-width", 3)
 
             }).on('mouseout', function (event, d) {
                 tooltip.style("visibility", "hidden")
-
-                d3.selectAll('circle').attr("stroke", null)
-            });;
+                u.attr("opacity", 1);
+                d3.selectAll('circle').attr("r", r).attr("stroke", null)
+            });
 
         // u
         //     .transition()
