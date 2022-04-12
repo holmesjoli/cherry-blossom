@@ -9,30 +9,8 @@
         <script src="https://d3js.org/d3.v7.min.js"></script>
     </head>
     <body>
-        <h1>Bloom</h1>
         <div id="chart--container">
-            <div id="chart"></div>
-            <div id="legend"></div>
-        </div>
-        <script type="module" src="./modules/helper_functions.js"></script>
-        <script type="module" src="./modules/visualization.js"></script>
-        <script type="module" src="main.js"></script>
-    </body>
-</html>
-
-<!-- <!DOCTYPE html>
-<html>
-    <header>
-        <title>Bloom</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <link rel="stylesheet" type="text/css" href="./style.css">
-        <link rel="stylesheet" href="https://use.typekit.net/knx7yjn.css">
-        <script src="https://d3js.org/d3.v7.min.js"></script>
-        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    </header>
-    <body>
-        <div class="container">
-            <div class="sidebar">
+            <div id="sidebar">
                 <h1>Bloom</h1>
                 <div>
                     <button id="reset">Reset</button>
@@ -49,19 +27,12 @@
                 <p>Hover over each bloom to see how the data were collected. Data that were collected in the same way will also be highlighted.</p>
                 <p>Data were collected by researcher Yasuyuki Aono.</p>
             </div>
-            <div class="main">
-                <div class="chart--container">
-                    <div id="chart"></div>
-                </div>
-                <div class="legend--container">
-                    <div id="sd-legend" class="legend"></div>
-                    <div id="median-legend" class="legend"></div>
-                    <div id="color-legend" class="legend"></div>
-                </div>
+            <div id="chart"></div>
+            <div id="legend">
             </div>
         </div>
         <script type="module" src="./modules/helper_functions.js"></script>
         <script type="module" src="./modules/visualization.js"></script>
         <script type="module" src="main.js"></script>
     </body>
-</html> -->
+</html>
