@@ -1,79 +1,84 @@
 import { uniqueArray } from "./helper_functions.js";
 
-function legend(margin, fillScale, xScale, yScale, sdFillScale, temp, sd, r) {
-    const legendWidth = 300;
-    const legendHeight = 500;
-    const legendMargin = 25;
-    const legendSpacing = 30;
+function legend(fillScale, xScale, yScale, sdFillScale, temp, sd, r) {
+    const width = 300;
+    const height = 200;
+    const margin = 100;
+    const spacing = 30;
 
-    const legend = d3.select("#legend")
-        .append("svg")
-        .attr("viewBox", `0 0 ${legendWidth} ${legendHeight}`)
-        .attr("preserveAspectRatio", "xMidYMid meet");
-
-    colorLegend(legend, margin, legendSpacing, fillScale, temp, r);
-    sdLegend(legend, margin, legendSpacing, xScale, yScale, sdFillScale, sd);
+    colorLegend(margin, width, height, spacing, fillScale, temp, r);
+    sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, sd);
 }
 
 // Title Creates the standard deviations legend
-function sdLegend(legend, margin, legendSpacing, xScale, yScale, sdFillScale, sd) {
+function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, sd) {
+
+    const legend = d3.select("#legend--sd")
+        .append("svg")
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("preserveAspectRatio", "xMidYMid meet");
 
     sd.forEach(function(d, i) {
 
         legend
             .append("rect")
-            .attr("y", margin.top*14 + legendSpacing*2*i)
+            .attr("y", margin + spacing*2*i)
             .attr("x", 15)
             .attr("width", xScale.bandwidth()*2.5)
             .attr("height", yScale.bandwidth()*2.5)
             .attr("fill", sdFillScale(d))
-            .attr("fill-opacity", .25)
+            .attr("fill-opacity", .25);
 
         legend
             .append("text")
-            .attr("y", margin.top*14 + legendSpacing*2*i + yScale.bandwidth()*2.5/2)
+            .attr("y", margin + spacing*2*i + yScale.bandwidth()*2.5/2)
             .attr("x", 15 + xScale.bandwidth()*2.5/2)
             .attr("text-anchor", "middle")
-            .text(d)
+            .text(d);
     });
 
     legend
         .append("text")
         .attr("class", "legend--title")
-        .attr("y", margin.top*13)
+        .attr("y", margin - 30)
         .attr("x", 5)
-        .text("Standard Deviation")
+        .text("Standard Deviation");
 }
 
 // Title Creates the temperature legend
-function colorLegend(legend, margin, legendSpacing, fillScale, temp, r) {
+function colorLegend(margin, width, height, spacing, fillScale, temp, r) {
 
     let textScale = d3.scaleOrdinal()
         .domain(temp)
-        .range(["greater than 48˚F (9˚C)", "less than 37˚F (3˚C)", "between 37˚F (3˚C) and 43˚F (6˚C)", "between 43˚F (6˚C) and 48˚F (9˚C)"])
+        .range(["greater than 48˚F (9˚C)", "less than 37˚F (3˚C)", "between 37˚F (3˚C) and 43˚F (6˚C)", "between 43˚F (6˚C) and 48˚F (9˚C)"]);
+
+    const legend = d3.select("#legend--temp")
+        .append("svg")
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("preserveAspectRatio", "xMidYMid meet");
 
     temp.forEach(function(d, i) {
 
         legend
             .append("circle")
-            .attr("cy", margin.top*6 + legendSpacing*i)
+            .attr("cy", margin + spacing*i)
             .attr("cx", 15)
             .attr("r", r*4)
-            .attr("fill", fillScale(d))
+            .attr("fill", fillScale(d));
 
         legend
             .append("text")
-            .attr("y", margin.top*6 + legendSpacing*i)
+            .attr("y", margin + spacing*i)
             .attr("x", 40)
-            .text(textScale(d))
+            .text(textScale(d));
     });
 
     legend
-    .append("text")
-    .attr("class", "legend--title")
-    .attr("y", margin.top*4)
-    .attr("x", 5)
-    .text("Temperature")
+        .append("text")
+        .attr("class", "legend--title")
+        .attr("y", margin - 30)
+        .attr("x", 5)
+        .text("Temperature");
 }
 
 // Create days label
@@ -240,5 +245,5 @@ export function drawVis(data, dates, params) {
         //     .attr("r", r)
     }
 
-    legend(margin, fillScale, xScale, yScale, sdFillScale, temp, sd, r);
+    legend(fillScale, xScale, yScale, sdFillScale, temp, sd, r);
 }
