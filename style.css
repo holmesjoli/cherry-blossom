@@ -157,15 +157,15 @@ button:hover {
 
   #legend {
     width: 100%;
-    /* flex-direction: row; */
+    flex-direction: row;
   }
-/* 
-  #legend {
+
+  #legend svg {
     width: 100%;
     padding-left: 40px;
     flex-direction: row;
     flex-wrap: wrap;
-  } */
+  }
 
   p {
     padding: 5px;
