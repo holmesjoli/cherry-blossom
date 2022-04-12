@@ -79,6 +79,14 @@ button:hover {
   margin: 20px;
 }
 
+#tree {
+  position: absolute;
+  z-index: -1000;
+  top: 0;
+  left: 20%;
+  max-width: 55vw;
+}
+
 .legend--label {
   font-size: 12pt;
 }
@@ -121,6 +129,7 @@ button:hover {
   padding: 10px 20px 10px 20px;
   border-radius: 10px;
 }
+
 /* MEDIA QUERIES */
 
 @media only screen and (max-width: 700px) {
@@ -165,6 +174,14 @@ button:hover {
     padding-left: 40px;
     flex-direction: row;
     flex-wrap: wrap;
+  }
+
+  #tree {
+    position: absolute;
+    z-index: -1000;
+    top: 35%;
+    left: 0;
+    max-width: 80vh;
   }
 
   p {

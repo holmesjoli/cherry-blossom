@@ -10,6 +10,13 @@ function colorLegend(margin, width, height, spacing, fillScale, temp, r) {
         .attr("viewBox", `0 0 ${width} ${height}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
 
+    legend
+        .append("text")
+        .attr("class", "legend--title")
+        .attr("y", margin - 30)
+        .attr("x", 5)
+        .text("Temperature");
+
     temp.forEach(function(d, i) {
 
         legend
@@ -25,13 +32,6 @@ function colorLegend(margin, width, height, spacing, fillScale, temp, r) {
             .attr("x", 40)
             .text(textScale(d));
     });
-
-    legend
-        .append("text")
-        .attr("class", "legend--title")
-        .attr("y", margin - 30)
-        .attr("x", 5)
-        .text("Temperature");
 }
 
 // Title Creates the standard deviations legend
@@ -41,6 +41,13 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
         .append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
+
+    legend
+        .append("text")
+        .attr("class", "legend--title")
+        .attr("y", margin - 30)
+        .attr("x", 5)
+        .text("Standard Deviation");
 
     sd.forEach(function(d, i) {
 
@@ -60,13 +67,6 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
             .attr("text-anchor", "middle")
             .text(d);
     });
-
-    legend
-        .append("text")
-        .attr("class", "legend--title")
-        .attr("y", margin - 30)
-        .attr("x", 5)
-        .text("Standard Deviation");
 }
 
 // Title Creates the median
@@ -76,6 +76,13 @@ function medianLegend(margin, width, height, spacing, xScale, yScale, sdFillScal
         .append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
+
+    legend
+        .append("text")
+        .attr("class", "legend--title")
+        .attr("y", margin - 30)
+        .attr("x", 5)
+        .text("Median");
 
     legend
         .append("rect")
@@ -92,13 +99,6 @@ function medianLegend(margin, width, height, spacing, xScale, yScale, sdFillScal
         .attr("x", 5)
         // .attr("text-anchor", "middle")
         .text("For each century");
-
-    legend
-        .append("text")
-        .attr("class", "legend--title")
-        .attr("y", margin - 30)
-        .attr("x", 5)
-        .text("Median");
 }
 
 
