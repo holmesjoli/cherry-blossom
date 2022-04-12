@@ -122,6 +122,9 @@ button:hover {
 
 @media only screen and (max-width: 700px) {
 
+}
+
+@media only screen and (max-width: 500px) {
   h1 {
     margin: 20px 10px;
   }
@@ -161,10 +164,8 @@ button:hover {
     max-width: 200px;
   }
 
-}
-
-@media only screen and (max-width: 500px) {
-  #legend svg {
-    max-width: 150px;
+  p {
+    padding: 5px;
+    font-size: 8pt;
   }
 }
