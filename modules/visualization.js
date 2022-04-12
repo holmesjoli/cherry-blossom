@@ -1,48 +1,52 @@
 import { uniqueArray } from "./helper_functions.js";
 
-function legend(margin, fillScale, temp, r) {
+function legend(margin, fillScale, xScale, yScale, sdFillScale, temp, sd, r) {
     const legendWidth = 300;
-    const legendHeight = 200;
+    const legendHeight = 500;
     const legendMargin = 25;
-    const legendSpacing = 50;
+    const legendSpacing = 30;
 
     const legend = d3.select("#legend")
         .append("svg")
         .attr("viewBox", `0 0 ${legendWidth} ${legendHeight}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
 
-    colorLegend(legend, margin, fillScale, temp, r);
+    colorLegend(legend, margin, legendSpacing, fillScale, temp, r);
+    sdLegend(legend, margin, legendSpacing, xScale, yScale, sdFillScale, sd);
 }
 
 // Title Creates the standard deviations legend
-function sdLegend(width, legendHeight, margin, xScale, yScale, sdFillScale, sd) {
-
-    const legend = d3.select("#sd-legend")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", legendHeight);
+function sdLegend(legend, margin, legendSpacing, xScale, yScale, sdFillScale, sd) {
 
     sd.forEach(function(d, i) {
 
         legend
             .append("rect")
-            .attr("x", margin.left + (xScale.bandwidth()+2)*i)
-            .attr("y", 0)
-            .attr("width", xScale.bandwidth())
-            .attr("height", yScale.bandwidth())
+            .attr("y", margin.top*14 + legendSpacing*2*i)
+            .attr("x", 15)
+            .attr("width", xScale.bandwidth()*2.5)
+            .attr("height", yScale.bandwidth()*2.5)
             .attr("fill", sdFillScale(d))
             .attr("fill-opacity", .25)
 
         legend
             .append("text")
-            .attr("x", margin.left + (xScale.bandwidth())*i + xScale.bandwidth()/2)
-            .attr("y", yScale.bandwidth()/2)
+            .attr("y", margin.top*14 + legendSpacing*2*i + yScale.bandwidth()*2.5/2)
+            .attr("x", 15 + xScale.bandwidth()*2.5/2)
+            .attr("text-anchor", "middle")
             .text(d)
     });
+
+    legend
+        .append("text")
+        .attr("class", "legend--title")
+        .attr("y", margin.top*13)
+        .attr("x", 5)
+        .text("Standard Deviation")
 }
 
 // Title Creates the temperature legend
-function colorLegend(legend, margin, fillScale, temp, r) {
+function colorLegend(legend, margin, legendSpacing, fillScale, temp, r) {
 
     let textScale = d3.scaleOrdinal()
         .domain(temp)
@@ -52,17 +56,24 @@ function colorLegend(legend, margin, fillScale, temp, r) {
 
         legend
             .append("circle")
-            .attr("cy", margin.top + 50*i)
+            .attr("cy", margin.top*6 + legendSpacing*i)
             .attr("cx", 15)
             .attr("r", r*4)
             .attr("fill", fillScale(d))
 
         legend
             .append("text")
-            .attr("y", margin.top + 50*i)
+            .attr("y", margin.top*6 + legendSpacing*i)
             .attr("x", 40)
             .text(textScale(d))
     });
+
+    legend
+    .append("text")
+    .attr("class", "legend--title")
+    .attr("y", margin.top*4)
+    .attr("x", 5)
+    .text("Temperature")
 }
 
 // Create days label
@@ -229,5 +240,5 @@ export function drawVis(data, dates, params) {
         //     .attr("r", r)
     }
 
-    legend(margin, fillScale, temp, r)
+    legend(margin, fillScale, xScale, yScale, sdFillScale, temp, sd, r);
 }

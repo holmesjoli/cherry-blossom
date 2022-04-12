@@ -94,6 +94,9 @@ button:hover {
   font-size: 10pt;
 }
 
+.legend--title {
+  font-size: 14pt;
+}
 
 .tick line,
 .domain {
