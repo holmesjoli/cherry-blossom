@@ -59,7 +59,7 @@ export function drawVis(data, dates, params) {
     let legendHeight = window.innerHeight*.15;
     const sd = ["1", "2", "3"];
     const temp = [">=9", ">=6 & <9", ">=3 & <6", "<3"];
-    const margin = {top: 20, left: 50, right: 10, bottom: 50};
+    const margin = {top: 0, left: 0, right: 0, bottom: 0};
     const r = 5;
 
     let centuries = uniqueArray(data, "century");
@@ -160,7 +160,7 @@ export function drawVis(data, dates, params) {
             .attr('r', r)
             .attr("fill", function(d) { return fillScale(d.temp_bin); })
             .attr('cx', function (d) { return d.x; })
-            .attr('cy', function (d) { return d.y - margin.bottom; })
+            .attr('cy', function (d) { return d.y - yScale.bandwidth(); })
     
             u.on('mouseover', function (event, d) {
 
