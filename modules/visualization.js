@@ -65,6 +65,15 @@ export function drawVis(data, dates, params) {
     let centuries = uniqueArray(data, "century");
     let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
 
+    let days2 = []
+    days.forEach(function(d) {
+
+        let x = dates.filter(function(j) {
+            return j.date === d;
+        });
+        days2.push(x[0].day)
+    })
+
     const svg = d3.select("#chart")
         .append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
@@ -84,6 +93,15 @@ export function drawVis(data, dates, params) {
         .domain(temp)
         .range(["#ED0A7E", "#F17098", "#F7ACB4", "#FEE5D4"]);
 
+    // const axisScale = d3.scaleOrdinal()
+    //     .domain(uniqueArray(dates, "date"))
+    //     .range(d3.map())
+
+    // console.log(uniqueArray(dates, "date"))
+    // console.log(uniqueArray(dates, "day"))
+
+    // console.log(axisScale(501))
+
     const sdFillScale = d3.scaleOrdinal()
         .domain(sd)
         .range(["#99C5DC", "#6494BA", "#286699"]);
@@ -95,7 +113,8 @@ export function drawVis(data, dates, params) {
     const xAxis = svg.append("g")
         .attr("class","axis")
         .attr("transform", `translate(0,${height-margin.bottom})`)
-        .call(d3.axisBottom().scale(xScale));
+        .call(d3.axisBottom().scale(xScale).tickValues(days)
+        .tickFormat((d, i) => days2[i]));
 
     const yAxis = svg.append("g")
         .attr("class","axis")
