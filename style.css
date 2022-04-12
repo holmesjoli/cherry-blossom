@@ -85,9 +85,10 @@ button:hover {
 }
 
 .axis--label {
-  font-size: 10pt;
-  font-weight: bold;
+  font-size: 6pt;
   text-anchor: middle;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .axis {

@@ -60,7 +60,10 @@ export function drawVis(data, dates, params) {
     const sd = ["1", "2", "3"];
     const temp = [">=9", ">=6 & <9", ">=3 & <6", "<3"];
     const margin = {top: 20, left: 50, right: 10, bottom: 50};
+    const innerWidth = width - margin.left - margin.right;
+    const xWidth = innerWidth/39;
     const r = 5;
+    const padding = .05;
 
     let centuries = uniqueArray(data, "century");
     let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
@@ -82,25 +85,16 @@ export function drawVis(data, dates, params) {
     const xScale = d3.scaleBand()
         .domain(days)
         .range([margin.left, width-margin.right])
-        .padding(0.05);
+        .padding(padding);
 
     const yScale = d3.scaleBand()
         .domain(centuries)
         .range([height-margin.bottom, margin.top])
-        .padding(0.05);
+        .padding(padding);
 
     const fillScale = d3.scaleOrdinal()
         .domain(temp)
         .range(["#ED0A7E", "#F17098", "#F7ACB4", "#FEE5D4"]);
-
-    // const axisScale = d3.scaleOrdinal()
-    //     .domain(uniqueArray(dates, "date"))
-    //     .range(d3.map())
-
-    // console.log(uniqueArray(dates, "date"))
-    // console.log(uniqueArray(dates, "day"))
-
-    // console.log(axisScale(501))
 
     const sdFillScale = d3.scaleOrdinal()
         .domain(sd)
@@ -120,6 +114,31 @@ export function drawVis(data, dates, params) {
         .attr("class","axis")
         .attr("transform", `translate(${margin.left},0)`)
         .call(d3.axisLeft().scale(yScale));
+
+    const march = svg.append("text")
+        .attr("class","axis--label")
+        .attr("x", margin.left + xWidth*5/2)
+        .attr("y", height-margin.bottom/2)
+        .text("March");
+
+    const april = svg.append("text")
+        .attr("class","axis--label")
+        .attr("x", margin.left + xWidth*5 + xWidth*30/2)
+        .attr("y", height-margin.bottom/2)
+        .text("April");
+
+    const may = svg.append("text")
+        .attr("class","axis--label")
+        .attr("x", margin.left + xWidth*35 + xWidth*4/2)
+        .attr("y", height-margin.bottom/2)
+        .text("May");
+
+    const yAxisLabel = svg.append("text")
+        .attr("class","axis--label")
+        .attr("transform","rotate(-90)")
+        .attr("x",-height/2)
+        .attr("y",margin.left/2)
+        .text("Century");
 
     const bars = svg.selectAll("rect")
         .data(dates)

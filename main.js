@@ -24,7 +24,7 @@ const files = {
                 date: +j.date,
                 month: j.month,
                 month_name: j.month_name,
-                day: j.day,
+                day: +j.day,
                 i: +j.i,
                 century: +j.century,
                 sd: j.sd,
