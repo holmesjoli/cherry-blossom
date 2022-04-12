@@ -35,6 +35,10 @@ button:hover {
   border: 2px solid #FFFFFF;
 }
 
+#chart {
+  position: relative;
+}
+
 #timer {
   min-width: 150px;
   min-height: 150px;
@@ -88,4 +92,19 @@ button:hover {
 
 .legend {
   max-width: 25%;
+}
+
+.tooltip {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  visibility: hidden;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 2px;
+  pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px 20px 10px 20px;
+  border-radius: 10px;
 }

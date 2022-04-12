@@ -125,6 +125,10 @@ export function drawVis(data, dates, params) {
         .force('collision', d3.forceCollide().radius(r).strength(1))
         .on('tick', ticked);
 
+    var tooltip = d3.select("#chart")
+    .append("div")
+    .attr("class", "tooltip");
+
     function ticked() {
 
         var u = svg
@@ -134,7 +138,21 @@ export function drawVis(data, dates, params) {
             .attr('r', r)
             .attr("fill", function(d) { return fillScale(d.temp_bin); })
             .attr('cx', function (d) { return d.x; })
-            .attr('cy', function (d) { return d.y - margin.bottom; });
+            .attr('cy', function (d) { return d.y - margin.bottom; })
+            .on('mouseover', function (event, d) {
+
+                tooltip.style("visibility", "visible")
+                    .style("left", event.offsetX + "px")
+                    .style("top", event.offsetY + "px")
+                    .html(`${d.temp_bin}`);
+
+                d3.select(this).attr("stroke", "#000000").attr("stroke-width", 3)
+
+            }).on('mouseout', function (event, d) {
+                tooltip.style("visibility", "hidden")
+
+                d3.selectAll('circle').attr("stroke", null)
+            });;
 
         // u
         //     .transition()
