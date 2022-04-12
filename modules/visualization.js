@@ -52,6 +52,22 @@ function colorLegend(width, legendHeight, margin, fillScale, temp, r) {
     });
 }
 
+// Create days label
+// Description an array for each date 
+// Return array
+function daysLabel(days, dates) {
+    let days2 = []
+    days.forEach(function(d) {
+
+        let x = dates.filter(function(j) {
+            return j.date === d;
+        });
+        days2.push(x[0].day)
+    })
+
+    return days2;
+}
+
 export function drawVis(data, dates, params) {
 
     const width = 500;
@@ -68,14 +84,7 @@ export function drawVis(data, dates, params) {
     let centuries = uniqueArray(data, "century");
     let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
 
-    let days2 = []
-    days.forEach(function(d) {
-
-        let x = dates.filter(function(j) {
-            return j.date === d;
-        });
-        days2.push(x[0].day)
-    })
+    let days2 = daysLabel(days, dates);
 
     const svg = d3.select("#chart")
         .append("svg")
@@ -207,6 +216,6 @@ export function drawVis(data, dates, params) {
     //     //     .attr("r", r)
     // }
 
-    // sdLegend(width*.5, legendHeight, margin, xScale, yScale, sdFillScale, sd);
-    // colorLegend(width*.5, legendHeight, margin, fillScale, temp, r);
+    sdLegend(width*.5, height, margin, xScale, yScale, sdFillScale, sd);
+    colorLegend(width*.5, height, margin, fillScale, temp, r);
 }
