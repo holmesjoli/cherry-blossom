@@ -7,7 +7,8 @@ function legend(fillScale, xScale, yScale, sdFillScale, temp, sd, r) {
     const spacing = 30;
 
     colorLegend(margin, width, height, spacing, fillScale, temp, r);
-    sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, sd);
+    sdLegend(margin, width, 150, spacing, xScale, yScale, sdFillScale, sd);
+    medianLegend(75, width, 150, spacing, xScale, yScale, sdFillScale, sd);
 }
 
 // Title Creates the standard deviations legend
@@ -23,16 +24,16 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
         legend
             .append("rect")
             .attr("y", margin)
-            .attr("x", 15 + spacing*2*i)
+            .attr("x", 5 + spacing*i*1.5)
             .attr("width", xScale.bandwidth()*2.5)
             .attr("height", yScale.bandwidth()*2.5)
             .attr("fill", sdFillScale(d))
-            .attr("fill-opacity", .25);
+            .attr("fill-opacity", .3);
 
         legend
             .append("text")
-            .attr("y", margin + yScale.bandwidth()*2.5/2)
-            .attr("x", 15 + spacing*2*i + xScale.bandwidth()*2.5/2)
+            .attr("y", margin - 5)
+            .attr("x", 5 + spacing*i*1.5 + xScale.bandwidth()*2.5/2)
             .attr("text-anchor", "middle")
             .text(d);
     });
@@ -40,9 +41,41 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
     legend
         .append("text")
         .attr("class", "legend--title")
-        .attr("y", margin - 20)
+        .attr("y", margin - 30)
         .attr("x", 5)
         .text("Standard Deviation");
+}
+
+// Title Creates the median
+function medianLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, sd) {
+
+    const legend = d3.select("#legend--sd")
+        .append("svg")
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("preserveAspectRatio", "xMidYMid meet");
+
+    legend
+        .append("rect")
+        .attr("y", margin)
+        .attr("x", 5)
+        .attr("width", xScale.bandwidth()*2.5)
+        .attr("height", yScale.bandwidth()*2.5)
+        .attr("fill", sdFillScale("1"))
+        .attr("fill-opacity", .9);
+
+    legend
+        .append("text")
+        .attr("y", margin - 5)
+        .attr("x", 5)
+        // .attr("text-anchor", "middle")
+        .text("For each century");
+
+    legend
+        .append("text")
+        .attr("class", "legend--title")
+        .attr("y", margin - 30)
+        .attr("x", 5)
+        .text("Median");
 }
 
 // Title Creates the temperature legend
