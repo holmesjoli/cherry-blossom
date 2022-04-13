@@ -35,6 +35,10 @@ export function drawVis(data, dates, params) {
 
     let days2 = daysLabel(days, dates);
 
+    var tooltip = d3.select("#chart")
+        .append("div")
+        .attr("class", "tooltip");
+
     const svg = d3.select("#chart")
         .append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
@@ -119,10 +123,6 @@ export function drawVis(data, dates, params) {
         .force('collision', d3.forceCollide().radius(r).strength(1))
         .on('tick', ticked);
 
-    var tooltip = d3.select("#chart")
-    .append("div")
-    .attr("class", "tooltip");
-
     function ticked() {
 
         var u = svg
@@ -134,6 +134,7 @@ export function drawVis(data, dates, params) {
             .attr("fill", function(d) { return fillScale(d.temp_bin); })
             .attr('cx', function (d) { return d.x + xScale.bandwidth()/2; })
             .attr('cy', function (d) { return d.y + yScale.bandwidth()/2; })
+            // .attr('opacity', 0)
 
             u.on('mouseover', function (event, d) {
 
@@ -159,8 +160,8 @@ export function drawVis(data, dates, params) {
 
         // u
         //     .transition()
-        //     .delay(function(d) {return d.i*params.speed})
-        //     .attr("r", r)
+        //     .delay(function(d) {return d.id*params.speed/d.total_n})
+        //     .attr("opacity", 1)
     }
 
     drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r);
