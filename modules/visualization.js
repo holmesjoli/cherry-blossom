@@ -16,6 +16,8 @@ function daysLabel(days, dates) {
     return days2;
 }
 
+// Title Simulation
+// Description Uses a force simulation to spread the blooms out
 export function sim(svg, data, speed, xScale, yScale, fillScale, rStart, rEnd) {
 
     // let filteredData = data;
