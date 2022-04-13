@@ -22,6 +22,10 @@ function sim(data, date, xScale, yScale, fillScale, r, svg) {
     //     return d.date === date;
     // })
 
+    var tooltip = d3.select("#chart")
+        .append("div")
+        .attr("class", "tooltip");
+
     var simulation = d3.forceSimulation(data)
         .force('x', d3.forceX().x(function (d) {
             return xScale(+d.date);
@@ -91,10 +95,6 @@ export function drawVis(data, dates, params) {
     let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
 
     let days2 = daysLabel(days, dates);
-
-    var tooltip = d3.select("#chart")
-        .append("div")
-        .attr("class", "tooltip");
 
     const svg = d3.select("#chart")
         .append("svg")
@@ -171,6 +171,5 @@ export function drawVis(data, dates, params) {
             .attr("fill-opacity", function(d) {return sdFillOpacity(d.date_is_median); });
 
     sim(data, date, xScale, yScale, fillScale, r, svg);
-
     drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r);
 }
