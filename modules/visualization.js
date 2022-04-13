@@ -16,40 +16,40 @@ function daysLabel(days, dates) {
     return days2;
 }
 
-export function sim(data, date, xScale, yScale, fillScale, r, svg) {
+export function sim(svg, data, speed, xScale, yScale, fillScale, rStart, rEnd) {
 
-    let filteredData = data.filter(function(d) {
-        return d.date <= date;
-    })
+    // let filteredData = data;
 
-    console.log(filteredData);
+    // let filteredData = data.filter(function(d) {
+    //     return d.date <= date;
+    // })
 
     var tooltip = d3.select("#chart")
         .append("div")
         .attr("class", "tooltip");
 
-    var simulation = d3.forceSimulation(filteredData)
+    var simulation = d3.forceSimulation(data)
         .force('x', d3.forceX().x(function (d) {
             return xScale(+d.date);
         }).strength(.1))
         .force('y', d3.forceY().y(function (d) {
             return yScale(+d.century);
         }).strength(.1))
-        .force('collision', d3.forceCollide().radius(r).strength(1))
+        .force('collision', d3.forceCollide().radius(rEnd).strength(1))
         .on('tick', ticked);
 
     function ticked() {
 
         var u = svg
             .selectAll('circle')
-            .data(filteredData)
+            .data(data)
             .join('circle')
             .attr('class', function(d) {return d.data_type_code.replace(/\s/g, '')})
-            .attr('r', r)
-            .attr("fill", function(d) { return fillScale(d.temp_bin); })
             .attr('cx', function (d) { return d.x + xScale.bandwidth()/2; })
             .attr('cy', function (d) { return d.y + yScale.bandwidth()/2; })
-            // .attr('opacity', 0)
+            .attr("fill", "#ffffff")
+            .attr('r', 0)
+            .attr('opacity', 0);
 
             u.on('mouseover', function (event, d) {
 
@@ -73,10 +73,13 @@ export function sim(data, date, xScale, yScale, fillScale, r, svg) {
                 d3.selectAll('circle').attr("stroke", null)
             });
 
-        // u
-        //     .transition()
-        //     .delay(function(d) {return d.id*params.speed/d.total_n})
-        //     .attr("opacity", 1)
+        u
+            .transition()
+            .ease(d3.easeCircleIn)
+            .delay(function(d) {return d.i*speed})
+            .attr("fill", function(d) { return fillScale(d.temp_bin); })
+            .attr("r", rEnd)
+            .attr("opacity", 1)
     }
 }
 

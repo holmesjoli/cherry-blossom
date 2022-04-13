@@ -69,7 +69,8 @@ function draw(data, dates, flower) {
     const height = 300;
     const temp = [">=9", ">=6 & <9", ">=3 & <6", "<3"];
     const sd = ["1", "2", "3"];
-    const r = 2;
+    const rStart = 0;
+    const rEnd = 2.5;
 
     const svg = d3.select("#chart")
         .append("svg")
@@ -99,11 +100,12 @@ function draw(data, dates, flower) {
                 limit: limit, 
                 play: play, 
                 i: i,
-                speed: 500
+                speed: 1000
             }
 
     Vis.drawGrid(svg, dates, xScale, yScale, sdFillScale);
-    Legend.drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r);
+    Legend.drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, rEnd);
+    Vis.sim(svg, data, params.speed, xScale, yScale, fillScale, rStart, rEnd);
 
     const dispatch = d3.dispatch("params");
 
@@ -131,7 +133,6 @@ function draw(data, dates, flower) {
             params.i = start;
         });
 
-        Helper.setDate(params, function (date) {
-            Vis.sim(data, parseInt(date), xScale, yScale, fillScale, r, svg);
+    Helper.setDate(params, function (date) {
     });
 }
