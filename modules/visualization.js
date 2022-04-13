@@ -17,6 +17,63 @@ function daysLabel(days, dates) {
     return days2;
 }
 
+function sim(data, date, xScale, yScale, fillScale, r, svg) {
+    // let filteredData = data.filter(function(d) {
+    //     return d.date === date;
+    // })
+
+    var simulation = d3.forceSimulation(data)
+        .force('x', d3.forceX().x(function (d) {
+            return xScale(+d.date);
+        }).strength(.1))
+        .force('y', d3.forceY().y(function (d) {
+            return yScale(+d.century);
+        }).strength(.1))
+        .force('collision', d3.forceCollide().radius(r).strength(1))
+        .on('tick', ticked);
+
+    function ticked() {
+
+        var u = svg
+            .selectAll('circle')
+            .data(data)
+            .join('circle')
+            .attr('class', function(d) {return d.data_type_code.replace(/\s/g, '')})
+            .attr('r', r)
+            .attr("fill", function(d) { return fillScale(d.temp_bin); })
+            .attr('cx', function (d) { return d.x + xScale.bandwidth()/2; })
+            .attr('cy', function (d) { return d.y + yScale.bandwidth()/2; })
+            // .attr('opacity', 0)
+
+            u.on('mouseover', function (event, d) {
+
+                tooltip.style("visibility", "visible")
+                    .style("left", event.offsetX + "px")
+                    .style("top", event.offsetY + "px")
+                    .html(`Data collection type: ${d.data_type_code}`);
+
+                let type = d.data_type_code.replace(/\s/g, '');
+
+                let sameType = d3.selectAll("." + type)
+
+                u.attr("opacity", 0.25);
+                sameType.attr("opacity", 1).raise()
+
+                d3.select(this).attr("stroke", "#FFFFFF").attr("stroke-width", 1)
+
+            }).on('mouseout', function (event, d) {
+                tooltip.style("visibility", "hidden")
+                u.attr("opacity", 1);
+                d3.selectAll('circle').attr("stroke", null)
+            });
+
+        // u
+        //     .transition()
+        //     .delay(function(d) {return d.id*params.speed/d.total_n})
+        //     .attr("opacity", 1)
+    }
+}
+
 export function drawVis(data, dates, params) {
 
     const width = 500;
@@ -113,56 +170,7 @@ export function drawVis(data, dates, params) {
             .attr("fill", function(d) {return sdFillScale(d.sd); })
             .attr("fill-opacity", function(d) {return sdFillOpacity(d.date_is_median); });
 
-    var simulation = d3.forceSimulation(data)
-        .force('x', d3.forceX().x(function (d) {
-            return xScale(+d.date);
-        }).strength(.1))
-        .force('y', d3.forceY().y(function (d) {
-            return yScale(+d.century);
-        }).strength(.1))
-        .force('collision', d3.forceCollide().radius(r).strength(1))
-        .on('tick', ticked);
-
-    function ticked() {
-
-        var u = svg
-            .selectAll('circle')
-            .data(data)
-            .join('circle')
-            .attr('class', function(d) {return d.data_type_code.replace(/\s/g, '')})
-            .attr('r', r)
-            .attr("fill", function(d) { return fillScale(d.temp_bin); })
-            .attr('cx', function (d) { return d.x + xScale.bandwidth()/2; })
-            .attr('cy', function (d) { return d.y + yScale.bandwidth()/2; })
-            // .attr('opacity', 0)
-
-            u.on('mouseover', function (event, d) {
-
-                tooltip.style("visibility", "visible")
-                    .style("left", event.offsetX + "px")
-                    .style("top", event.offsetY + "px")
-                    .html(`Data collection type: ${d.data_type_code}`);
-
-                let type = d.data_type_code.replace(/\s/g, '');
-
-                let sameType = d3.selectAll("." + type)
-
-                u.attr("opacity", 0.25);
-                sameType.attr("opacity", 1).raise()
-
-                d3.select(this).attr("stroke", "#FFFFFF").attr("stroke-width", 1)
-
-            }).on('mouseout', function (event, d) {
-                tooltip.style("visibility", "hidden")
-                u.attr("opacity", 1);
-                d3.selectAll('circle').attr("stroke", null)
-            });
-
-        // u
-        //     .transition()
-        //     .delay(function(d) {return d.id*params.speed/d.total_n})
-        //     .attr("opacity", 1)
-    }
+    sim(data, date, xScale, yScale, fillScale, r, svg);
 
     drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r);
 }
