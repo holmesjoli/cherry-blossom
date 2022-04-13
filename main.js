@@ -1,5 +1,7 @@
 import * as Helper from "./modules/helper_functions.js";
 import * as Vis from "./modules/visualization.js";
+import * as Legend from "./modules/legend.js";
+import { uniqueArray } from "./modules/helper_functions.js";
 
 const files = {
     bloom: {
@@ -51,14 +53,46 @@ Promise.all(promises).then(function (values) {
 
 function draw(data, dates, flower) {
 
-    console.log(data);
-    console.log(dates);
-    console.log(flower);
+    // console.log(data);
+    // console.log(dates);
+    // console.log(flower);
     
     let start = d3.min(dates, function(d) {return +d.i});
     let limit = d3.max(dates, function(d) {return +d.i});
     let i = start;
     let play = true;
+    let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
+    let centuries = uniqueArray(data, "century");
+    const margin = {top: 20, left: 50, right: 10, bottom: 50};
+    const padding = .05;
+    const width = 500;
+    const height = 300;
+    const temp = [">=9", ">=6 & <9", ">=3 & <6", "<3"];
+    const sd = ["1", "2", "3"];
+    const r = 2;
+
+    const svg = d3.select("#chart")
+        .append("svg")
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("preserveAspectRatio", "xMidYMid meet");
+
+    const xScale = d3.scaleBand()
+        .domain(days)
+        .range([margin.left, width-margin.right])
+        .padding(padding);
+
+    const yScale = d3.scaleBand()
+        .domain(centuries)
+        .range([height-margin.bottom, margin.top])
+        .padding(padding);
+
+    const sdFillScale = d3.scaleOrdinal()
+        .domain(sd)
+        .range(["#99C5DC", "#6494BA", "#286699"]);
+
+    const fillScale = d3.scaleOrdinal()
+        .domain(temp)
+        .range(["#ED0A7E", "#F17098", "#F7ACB4", "#FEE5D4"]);
 
     let params = {
                 dates: dates, 
@@ -68,7 +102,9 @@ function draw(data, dates, flower) {
                 speed: 500
             }
 
-    Vis.drawVis(data, dates, params);
+    Vis.drawVis(data, dates, params, xScale, yScale, fillScale, sdFillScale, svg);
+    Vis.sim(data, xScale, yScale, fillScale, r, svg);
+    Legend.drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r);
 
     const dispatch = d3.dispatch("params");
 

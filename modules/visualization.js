@@ -1,5 +1,4 @@
 import { uniqueArray } from "./helper_functions.js";
-import {drawLegend} from "./legend.js"
 
 // Create days label
 // Description an array for each date 
@@ -17,7 +16,7 @@ function daysLabel(days, dates) {
     return days2;
 }
 
-function sim(data, date, xScale, yScale, fillScale, r, svg) {
+export function sim(data, xScale, yScale, fillScale, r, svg) {
     // let filteredData = data.filter(function(d) {
     //     return d.date === date;
     // })
@@ -78,7 +77,7 @@ function sim(data, date, xScale, yScale, fillScale, r, svg) {
     }
 }
 
-export function drawVis(data, dates, params) {
+export function drawVis(data, dates, params, xScale, yScale, fillScale, sdFillScale, svg) {
 
     const width = 500;
     const height = 300;
@@ -89,35 +88,9 @@ export function drawVis(data, dates, params) {
     const innerWidth = width - margin.left - margin.right;
     const xWidth = innerWidth/39;
     const r = 2;
-    const padding = .05;
 
-    let centuries = uniqueArray(data, "century");
     let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
-
     let days2 = daysLabel(days, dates);
-
-    const svg = d3.select("#chart")
-        .append("svg")
-        .attr("viewBox", `0 0 ${width} ${height}`)
-        .attr("preserveAspectRatio", "xMidYMid meet");
-
-    const xScale = d3.scaleBand()
-        .domain(days)
-        .range([margin.left, width-margin.right])
-        .padding(padding);
-
-    const yScale = d3.scaleBand()
-        .domain(centuries)
-        .range([height-margin.bottom, margin.top])
-        .padding(padding);
-
-    const fillScale = d3.scaleOrdinal()
-        .domain(temp)
-        .range(["#ED0A7E", "#F17098", "#F7ACB4", "#FEE5D4"]);
-
-    const sdFillScale = d3.scaleOrdinal()
-        .domain(sd)
-        .range(["#99C5DC", "#6494BA", "#286699"]);
 
     const sdFillOpacity = d3.scaleOrdinal()
         .domain(["TRUE", "FALSE"])
@@ -169,7 +142,4 @@ export function drawVis(data, dates, params) {
             .attr("height", yScale.bandwidth())
             .attr("fill", function(d) {return sdFillScale(d.sd); })
             .attr("fill-opacity", function(d) {return sdFillOpacity(d.date_is_median); });
-
-    sim(data, date, xScale, yScale, fillScale, r, svg);
-    drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r);
 }
