@@ -132,10 +132,6 @@ function draw(data, dates, flower) {
         });
 
         Helper.setDate(params, function (date) {
-            // console.log(date)
-            // console.log(parseInt(date))
             Vis.sim(data, parseInt(date), xScale, yScale, fillScale, r, svg);
-        // console.log(x)
-        // return x;
     });
 }
