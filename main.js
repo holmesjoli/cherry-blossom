@@ -102,7 +102,7 @@ function draw(data, dates, flower) {
                 speed: 500
             }
 
-    Vis.drawVis(data, dates, params, xScale, yScale, fillScale, sdFillScale, svg);
+    Vis.drawGrid(data, dates, params, xScale, yScale, fillScale, sdFillScale, svg);
     Vis.sim(data, xScale, yScale, fillScale, r, svg);
     Legend.drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r);
 

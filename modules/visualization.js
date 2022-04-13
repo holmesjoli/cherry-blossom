@@ -77,17 +77,16 @@ export function sim(data, xScale, yScale, fillScale, r, svg) {
     }
 }
 
-export function drawVis(data, dates, params, xScale, yScale, fillScale, sdFillScale, svg) {
+// Title Draw grid
+// Description draws the grid, and all of the axis labels
+export function drawGrid(data, dates, params, xScale, yScale, fillScale, sdFillScale, svg) {
 
     const width = 500;
     const height = 300;
 
-    const sd = ["1", "2", "3"];
-    const temp = [">=9", ">=6 & <9", ">=3 & <6", "<3"];
     const margin = {top: 20, left: 50, right: 10, bottom: 50};
     const innerWidth = width - margin.left - margin.right;
     const xWidth = innerWidth/39;
-    const r = 2;
 
     let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
     let days2 = daysLabel(days, dates);
