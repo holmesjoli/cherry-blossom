@@ -16,16 +16,19 @@ function daysLabel(days, dates) {
     return days2;
 }
 
-export function sim(data, xScale, yScale, fillScale, r, svg) {
-    // let filteredData = data.filter(function(d) {
-    //     return d.date === date;
-    // })
+export function sim(data, date, xScale, yScale, fillScale, r, svg) {
+
+    let filteredData = data.filter(function(d) {
+        return d.date <= date;
+    })
+
+    console.log(filteredData);
 
     var tooltip = d3.select("#chart")
         .append("div")
         .attr("class", "tooltip");
 
-    var simulation = d3.forceSimulation(data)
+    var simulation = d3.forceSimulation(filteredData)
         .force('x', d3.forceX().x(function (d) {
             return xScale(+d.date);
         }).strength(.1))
@@ -39,7 +42,7 @@ export function sim(data, xScale, yScale, fillScale, r, svg) {
 
         var u = svg
             .selectAll('circle')
-            .data(data)
+            .data(filteredData)
             .join('circle')
             .attr('class', function(d) {return d.data_type_code.replace(/\s/g, '')})
             .attr('r', r)
@@ -79,7 +82,7 @@ export function sim(data, xScale, yScale, fillScale, r, svg) {
 
 // Title Draw grid
 // Description draws the grid, and all of the axis labels
-export function drawGrid(data, dates, params, xScale, yScale, fillScale, sdFillScale, svg) {
+export function drawGrid(svg, dates, xScale, yScale, sdFillScale) {
 
     const width = 500;
     const height = 300;
