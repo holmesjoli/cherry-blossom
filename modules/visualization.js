@@ -16,9 +16,8 @@ function daysLabel(days, dates) {
     return days2;
 }
 
-
 // Title Simulation
-// Description Create the simulation so that nodes are spread out and do not overlap
+// Description Uses a force simulation to spread the blooms out
 export function sim(svg, data, speed, xScale, yScale, fillScale, rStart, rEnd) {
 
     var tooltip = d3.select("#chart")
