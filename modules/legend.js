@@ -24,7 +24,9 @@ function colorLegend(margin, width, height, spacing, fillScale, temp, r) {
             .attr("cy", margin + spacing*i)
             .attr("cx", 15)
             .attr("r", r*4)
-            .attr("fill", fillScale(d));
+            .attr("fill", "#ffffff")
+            .attr("stroke-width", 3)
+            .attr("stroke", fillScale(d));
 
         legend
             .append("text")
@@ -106,7 +108,7 @@ function medianLegend(margin, width, height, spacing, xScale, yScale, sdFillScal
 // Draws all of the legends
 export function drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r) {
     const width = 300;
-    const height = 200;
+    const height = 205;
     const margin = 100;
     const spacing = 30;
 

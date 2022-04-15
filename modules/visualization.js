@@ -48,6 +48,7 @@ export function sim(svg, data, speed, xScale, yScale, fillScale, rStart, rEnd) {
             .attr('cx', function (d) { return d.x + xScale.bandwidth()/2; })
             .attr('cy', function (d) { return d.y + yScale.bandwidth()/2; })
             .attr("fill", "#ffffff")
+            .attr("stroke", function(d) {return fillScale(d.temp_bin)})
             .attr('r', 0)
             .attr('opacity', 0);
 
@@ -65,19 +66,18 @@ export function sim(svg, data, speed, xScale, yScale, fillScale, rStart, rEnd) {
                 u.attr("opacity", 0.25);
                 sameType.attr("opacity", 1).raise()
 
-                d3.select(this).attr("stroke", "#FFFFFF").attr("stroke-width", 1)
+                d3.select(this).attr("fill", fillScale(d.temp_bin))
 
             }).on('mouseout', function (event, d) {
                 tooltip.style("visibility", "hidden")
                 u.attr("opacity", 1);
-                d3.selectAll('circle').attr("stroke", null)
+                d3.select(this).attr("fill", "#FFFFFF")
             });
 
         u
             .transition()
             .ease(d3.easeCircleIn)
-            .delay(function(d) {return d.i*speed})
-            .attr("fill", function(d) { return fillScale(d.temp_bin); })
+            .delay(function(d) {return (d.i - 1)*speed})
             .attr("r", rEnd)
             .attr("opacity", 1)
     }
