@@ -16,13 +16,10 @@ function daysLabel(days, dates) {
     return days2;
 }
 
+
+// Title Simulation
+// Description Create the simulation so that nodes are spread out and do not overlap
 export function sim(svg, data, speed, xScale, yScale, fillScale, rStart, rEnd) {
-
-    // let filteredData = data;
-
-    // let filteredData = data.filter(function(d) {
-    //     return d.date <= date;
-    // })
 
     var tooltip = d3.select("#chart")
         .append("div")

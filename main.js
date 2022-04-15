@@ -3,6 +3,7 @@ import * as Vis from "./modules/visualization.js";
 import * as Legend from "./modules/legend.js";
 import { uniqueArray } from "./modules/helper_functions.js";
 
+// File data and parsing functions
 const files = {
     bloom: {
         pth: "./data/data.csv",
@@ -33,10 +34,6 @@ const files = {
                 date_is_median: j.date_is_median
             }
         }
-    },
-    flower: {
-        pth: "./svg/flower.svg",
-        parse: null
     }
 };
 
@@ -48,15 +45,13 @@ for (var key of Object.keys(files)) {
 }
 
 Promise.all(promises).then(function (values) {
-    draw(values[0], values[1], values[2]);
+    draw(values[0], values[1]);
 });
 
-function draw(data, dates, flower) {
+// Title Draw
+// Description main draw function
+function draw(data, dates) {
 
-    // console.log(data);
-    // console.log(dates);
-    // console.log(flower);
-    
     let start = d3.min(dates, function(d) {return +d.i});
     let limit = d3.max(dates, function(d) {return +d.i});
     let i = start;
@@ -108,20 +103,6 @@ function draw(data, dates, flower) {
     Vis.sim(svg, data, params.speed, xScale, yScale, fillScale, rStart, rEnd);
 
     const dispatch = d3.dispatch("params");
-
-    d3.select("#play-pause")
-        .on("click", function() {
-            let playPauseIcon = document.getElementById("play-pause-icon");
-
-            play = !play;
-
-            if (play) {
-                playPauseIcon.className = "fa fa-play";
-            } else {
-                playPauseIcon.className = "fa fa-pause";
-            }
-            dispatch.call("params");
-        });
 
     // dispatch event handlers
     dispatch.on("params", ()=>{

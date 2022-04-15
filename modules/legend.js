@@ -72,7 +72,7 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
 }
 
 // Title Creates the median
-function medianLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, sd) {
+function medianLegend(margin, width, height, xScale, yScale, sdFillScale, sd) {
 
     const legend = d3.select("#legend")
         .append("svg")
@@ -99,12 +99,11 @@ function medianLegend(margin, width, height, spacing, xScale, yScale, sdFillScal
         .append("text")
         .attr("y", margin - 5)
         .attr("x", 5)
-        // .attr("text-anchor", "middle")
         .text("For each century");
 }
 
 
-//Title Draw Legend
+// Title Draw Legend
 // Draws all of the legends
 export function drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r) {
     const width = 300;
@@ -114,5 +113,5 @@ export function drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r) 
 
     colorLegend(margin, width, height, spacing, fillScale, temp, r);
     sdLegend(margin, width, 150, spacing, xScale, yScale, sdFillScale, sd);
-    medianLegend(margin, width, 150, spacing, xScale, yScale, sdFillScale, sd);
+    medianLegend(margin, width, 150, xScale, yScale, sdFillScale, sd);
 }
