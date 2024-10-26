@@ -23,9 +23,9 @@ function colorLegend(margin, width, height, spacing, fillScale, temp, r) {
             .append("circle")
             .attr("cy", margin + 20*i -3)
             .attr("cx", 15)
-            .attr("r", r*2)
+            .attr("r", 3)
             .attr("fill", "#ffffff")
-            .attr("stroke-width", 3)
+            .attr("stroke-width", 1)
             .attr("stroke", fillScale(d));
 
         legend
@@ -60,8 +60,7 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
             .attr("x", 5 + spacing*i)
             .attr("width", xScale.bandwidth())
             .attr("height", yScale.bandwidth())
-            .attr("fill", sdFillScale(d))
-            .attr("fill-opacity", .3);
+            .attr("fill", sdFillScale(d));
 
         legend
             .append("text")
@@ -95,8 +94,9 @@ function medianLegend(margin, width, height, xScale, yScale, sdFillScale, sd) {
         .attr("x", 5)
         .attr("width", xScale.bandwidth())
         .attr("height", yScale.bandwidth())
-        .attr("fill", sdFillScale("1"))
-        .attr("fill-opacity", .9);
+        .attr("fill", sdFillScale(3))
+        .attr("stroke", "#ffffff")
+        .attr("stroke-width", 2 );
 
     legend
         .append("text")

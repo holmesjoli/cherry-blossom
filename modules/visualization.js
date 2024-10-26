@@ -45,6 +45,7 @@ export function sim(svg, data, speed, xScale, yScale, fillScale, rStart, rEnd) {
         .attr("fill", "#ffffff")
         .attr("stroke", function(d) {return fillScale(d.temp_bin)})
         .attr('r', 0)
+        .attr('z-index', 2)
         .attr('opacity', 0);
 
     function ticked() {
@@ -98,10 +99,6 @@ export function drawGrid(svg, dates, xScale, yScale, sdFillScale) {
 
     let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
     let days2 = daysLabel(days, dates);
-
-    const sdFillOpacity = d3.scaleOrdinal()
-        .domain(["TRUE", "FALSE"])
-        .range([.7, .3]);
     
     const xAxis = svg.append("g")
         .attr("class","axis")
@@ -148,5 +145,6 @@ export function drawGrid(svg, dates, xScale, yScale, sdFillScale) {
             .attr("width", xScale.bandwidth())
             .attr("height", yScale.bandwidth())
             .attr("fill", function(d) {return sdFillScale(d.sd); })
-            .attr("fill-opacity", function(d) {return sdFillOpacity(d.date_is_median); });
+            .attr("stroke",  d => d.date_is_median === "TRUE" ? "#ffffff" : "#212121")
+            .attr("stroke-width",  d => d.date_is_median === "TRUE" ? 2 : 0);
 }

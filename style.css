@@ -10,7 +10,7 @@ html, body {
   line-height: 1;
   margin: 0;
   padding: 0;
-  background-color: #212121;
+  /* background-color: #212121; */
   color: #ffffff;
 }
 
@@ -18,12 +18,13 @@ body {
   display: flex;
   flex-direction: row;
   overflow-y: hidden;
+  background-color: #212121;
 }
 
 h1 {
   font-size: 50pt;
   margin: 0;
-  color: #E93C8F;
+  color: #99C5DC;
   font-weight: 300;
   margin: 30px 10px;
 }
@@ -36,7 +37,7 @@ p {
 
 button {
   background: #FFFFFF;
-  border: 2px solid #E93C8F;
+  border: 2px solid #99C5DC;
   border-radius: 7px;
   font-size: 14pt;
   margin: auto;
@@ -79,7 +80,7 @@ button:hover {
   max-width: 200px;
   max-height: 200px;
   font-size: 30pt;
-  border: 3px #E93C8F solid;
+  border: 3px #99C5DC solid;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -89,7 +90,7 @@ button:hover {
 
 #tree {
   position: absolute;
-  z-index: -1000;
+  /* z-index: -1; */
   top: 0;
   left: 30%;
   max-width: 70vw;
@@ -209,7 +210,7 @@ h1:before{
 
   #tree {
     position: absolute;
-    z-index: -1000;
+    /* z-index: -1000; */
     top: 35%;
     left: 0;
     max-width: 80vh;

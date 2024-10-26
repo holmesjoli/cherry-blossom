@@ -65,7 +65,7 @@ function draw(data, dates) {
     const temp = [">=9", ">=6 & <9", ">=3 & <6", "<3"];
     const sd = ["1", "2", "3"];
     const rStart = 0;
-    const rEnd = 2.5;
+    const rEnd = 3;
 
     const svg = d3.select("#chart")
         .append("svg")
