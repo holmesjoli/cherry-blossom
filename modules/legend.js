@@ -8,14 +8,12 @@ function colorLegend(margin, width, height, spacing, fillScale, temp, r) {
     const legend = d3.select("#legend")
         .append("svg")
         .attr("width", width)
-        .attr("height", height)
-        // .attr("viewBox", `0 0 ${width} ${height}`)
-        // .attr("preserveAspectRatio", "xMidYMid meet");
+        .attr("height", height);
 
     legend
         .append("text")
         .attr("class", "legend--title")
-        .attr("y", margin - 30)
+        .attr("y", 12)
         .attr("x", 5)
         .text("Temperature");
 
@@ -23,16 +21,17 @@ function colorLegend(margin, width, height, spacing, fillScale, temp, r) {
 
         legend
             .append("circle")
-            .attr("cy", margin + spacing*i)
+            .attr("cy", margin + 20*i -3)
             .attr("cx", 15)
-            .attr("r", r*4)
+            .attr("r", r*2)
             .attr("fill", "#ffffff")
             .attr("stroke-width", 3)
             .attr("stroke", fillScale(d));
 
         legend
             .append("text")
-            .attr("y", margin + spacing*i)
+            .attr("class", "legend--text")
+            .attr("y", margin + 20*i)
             .attr("x", 40)
             .text(textScale(d));
     });
@@ -44,14 +43,12 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
     const legend = d3.select("#legend")
         .append("svg")
         .attr("width", width)
-        .attr("height", height)
-        // .attr("viewBox", `0 0 ${width} ${height}`)
-        // .attr("preserveAspectRatio", "xMidYMid meet");
+        .attr("height", height);
 
     legend
         .append("text")
         .attr("class", "legend--title")
-        .attr("y", margin - 30)
+        .attr("y", 12)
         .attr("x", 5)
         .text("Standard Deviation");
 
@@ -61,16 +58,16 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
             .append("rect")
             .attr("y", margin)
             .attr("x", 5 + spacing*i*1.5)
-            .attr("width", xScale.bandwidth()*2.5)
-            .attr("height", yScale.bandwidth()*2.5)
+            .attr("width", xScale.bandwidth())
+            .attr("height", yScale.bandwidth())
             .attr("fill", sdFillScale(d))
             .attr("fill-opacity", .3);
 
         legend
             .append("text")
+            .attr("class", "legend--text")
             .attr("y", margin - 5)
-            .attr("x", 5 + spacing*i*1.5 + xScale.bandwidth()*2.5/2)
-            .attr("text-anchor", "middle")
+            .attr("x", 5 + spacing*i*1.5 + xScale.bandwidth())
             .text(d);
     });
 }
@@ -88,7 +85,7 @@ function medianLegend(margin, width, height, xScale, yScale, sdFillScale, sd) {
     legend
         .append("text")
         .attr("class", "legend--title")
-        .attr("y", margin - 30)
+        .attr("y", 12)
         .attr("x", 5)
         .text("Median");
 
@@ -96,13 +93,14 @@ function medianLegend(margin, width, height, xScale, yScale, sdFillScale, sd) {
         .append("rect")
         .attr("y", margin)
         .attr("x", 5)
-        .attr("width", xScale.bandwidth()*2.5)
-        .attr("height", yScale.bandwidth()*2.5)
+        .attr("width", xScale.bandwidth())
+        .attr("height", yScale.bandwidth())
         .attr("fill", sdFillScale("1"))
         .attr("fill-opacity", .9);
 
     legend
         .append("text")
+        .attr("class", "legend--text")
         .attr("y", margin - 5)
         .attr("x", 5)
         .text("For each century");
@@ -114,7 +112,7 @@ function medianLegend(margin, width, height, xScale, yScale, sdFillScale, sd) {
 export function drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, r) {
     const width = 300;
     const height = 205;
-    const margin = 100;
+    const margin = 30;
     const spacing = 30;
 
     colorLegend(margin, width, height, spacing, fillScale, temp, r);

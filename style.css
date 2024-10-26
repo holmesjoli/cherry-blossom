@@ -59,9 +59,7 @@ button:hover {
 }
 
 #chart {
-  width: 70%;
   flex: 1 0 70%;
-  max-height: 70vh;
   position: relative;
 }
 
@@ -96,8 +94,9 @@ button:hover {
   font-size: 12pt;
 }
 
-.axis--label {
-  font-size: 6pt;
+.axis--label,
+.legend--title {
+  font-size: 12pt;
   text-anchor: middle;
   text-transform: uppercase;
   font-weight: 500;
@@ -108,7 +107,7 @@ button:hover {
 }
 
 .legend--title {
-  font-size: 14pt;
+  text-anchor: start;
 }
 
 .tick line,
@@ -116,8 +115,9 @@ button:hover {
   color: #FFFFFF;
 }
 
-.tick text {
-  font-size: 5pt;
+.tick text,
+.legend--text {
+  font-size: 10pt;
 }
 
 .tooltip {

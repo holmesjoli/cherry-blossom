@@ -102,7 +102,7 @@ function draw(data, dates) {
 
     Vis.drawGrid(svg, dates, xScale, yScale, sdFillScale);
     Legend.drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, rEnd);
-    Vis.sim(svg, data, params.speed, xScale, yScale, fillScale, rStart, rEnd);
+    // Vis.sim(svg, data, params.speed, xScale, yScale, fillScale, rStart, rEnd);
 
     const dispatch = d3.dispatch("params");
 

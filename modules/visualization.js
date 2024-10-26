@@ -83,8 +83,8 @@ export function sim(svg, data, speed, xScale, yScale, fillScale, rStart, rEnd) {
 // Description draws the grid, and all of the axis labels
 export function drawGrid(svg, dates, xScale, yScale, sdFillScale) {
 
-    const width = 500;
-    const height = 300;
+    const width = 1000;
+    const height = 600;
 
     const margin = {top: 20, left: 50, right: 10, bottom: 50};
     const innerWidth = width - margin.left - margin.right;
@@ -111,26 +111,26 @@ export function drawGrid(svg, dates, xScale, yScale, sdFillScale) {
     const march = svg.append("text")
         .attr("class","axis--label")
         .attr("x", margin.left + xWidth*5/2)
-        .attr("y", height-margin.bottom/2)
+        .attr("y", height-margin.bottom/2 + 15)
         .text("March");
 
     const april = svg.append("text")
         .attr("class","axis--label")
         .attr("x", margin.left + xWidth*5 + xWidth*30/2)
-        .attr("y", height-margin.bottom/2)
+        .attr("y", height-margin.bottom/2 + 15)
         .text("April");
 
     const may = svg.append("text")
         .attr("class","axis--label")
         .attr("x", margin.left + xWidth*35 + xWidth*4/2)
-        .attr("y", height-margin.bottom/2)
+        .attr("y", height-margin.bottom/2 + 15)
         .text("May");
 
     const yAxisLabel = svg.append("text")
         .attr("class","axis--label")
         .attr("transform","rotate(-90)")
         .attr("x",-height/2)
-        .attr("y",margin.left/2)
+        .attr("y",margin.left/2 - 10)
         .text("Century");
 
     const bars = svg.selectAll("rect")
