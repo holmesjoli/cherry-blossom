@@ -12,6 +12,12 @@ html, body {
   padding: 0;
 }
 
+body {
+  display: flex;
+  flex-direction: row;
+  overflow-y: hidden;
+}
+
 h1 {
   font-size: 50pt;
   margin: 0;
@@ -36,12 +42,12 @@ button:hover {
 #chart--container {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 #sidebar {
-  width: 15%;
-  flex: 1 0 15%;
+  width: 30%;
+  flex: 1 0 30%;
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -60,10 +66,8 @@ button:hover {
 }
 
 #legend {
-  width: 15%;
-  flex: 1 0 15%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 #timer {
@@ -84,8 +88,8 @@ button:hover {
   position: absolute;
   z-index: -1000;
   top: 0;
-  left: 20%;
-  max-width: 55vw;
+  left: 30%;
+  max-width: 70vw;
 }
 
 .legend--label {
@@ -182,11 +186,12 @@ h1:before{
 
   #legend {
     width: 100%;
-    flex-direction: row;
+    display: flex;
+    flex-direction: column;
   }
 
   #legend svg {
-    width: 100%;
+    width: 100%; 
     padding-left: 40px;
     flex-direction: row;
     flex-wrap: wrap;

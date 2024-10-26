@@ -7,8 +7,10 @@ function colorLegend(margin, width, height, spacing, fillScale, temp, r) {
 
     const legend = d3.select("#legend")
         .append("svg")
-        .attr("viewBox", `0 0 ${width} ${height}`)
-        .attr("preserveAspectRatio", "xMidYMid meet");
+        .attr("width", width)
+        .attr("height", height)
+        // .attr("viewBox", `0 0 ${width} ${height}`)
+        // .attr("preserveAspectRatio", "xMidYMid meet");
 
     legend
         .append("text")
@@ -41,8 +43,10 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
 
     const legend = d3.select("#legend")
         .append("svg")
-        .attr("viewBox", `0 0 ${width} ${height}`)
-        .attr("preserveAspectRatio", "xMidYMid meet");
+        .attr("width", width)
+        .attr("height", height)
+        // .attr("viewBox", `0 0 ${width} ${height}`)
+        // .attr("preserveAspectRatio", "xMidYMid meet");
 
     legend
         .append("text")
@@ -76,6 +80,8 @@ function medianLegend(margin, width, height, xScale, yScale, sdFillScale, sd) {
 
     const legend = d3.select("#legend")
         .append("svg")
+        .attr("width", width)
+        .attr("height", height)
         .attr("viewBox", `0 0 ${width} ${height}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
 

@@ -60,8 +60,8 @@ function draw(data, dates) {
     let centuries = uniqueArray(data, "century");
     const margin = {top: 20, left: 50, right: 10, bottom: 50};
     const padding = .05;
-    const width = 500;
-    const height = 300;
+    const width = 1000;
+    const height = 600;
     const temp = [">=9", ">=6 & <9", ">=3 & <6", "<3"];
     const sd = ["1", "2", "3"];
     const rStart = 0;
@@ -69,8 +69,10 @@ function draw(data, dates) {
 
     const svg = d3.select("#chart")
         .append("svg")
-        .attr("viewBox", `0 0 ${width} ${height}`)
-        .attr("preserveAspectRatio", "xMidYMid meet");
+        .attr("width", width)
+        .attr("height", height)
+        // .attr("viewBox", `0 0 ${width} ${height}`)
+        // .attr("preserveAspectRatio", "xMidYMid meet");
 
     const xScale = d3.scaleBand()
         .domain(days)

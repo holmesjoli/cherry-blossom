@@ -9,27 +9,29 @@
         <script src="https://d3js.org/d3.v7.min.js"></script>
     </head>
     <body>
-        <div id="chart--container">
-            <div id="sidebar">
-                <div>
-                    <h1></h1>
-                    <div class="timer-container">
-                        <div id="timer">
-                            <div id="date">
-                                <div id="month">March</div><div id="days">27</div>
-                            </div>
+        <div id="sidebar">
+            <div>
+                <h1></h1>
+                <div class="timer-container">
+                    <div id="timer">
+                        <div id="date">
+                            <div id="month">March</div><div id="days">27</div>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <p>Cherry blossom blooms are a yearly occurrence, often symbolizing the arrival of spring. Researchers in Kyoto collected data from recorded peak blooms dating back to the 9th century. Peak bloom refers to when 80% or more of the trees' blossoms are open.</p>
-                    <p>Hover over each bloom to see how the data were collected. Data that were collected in the same way will also be highlighted.</p>
-                    <p>Data were collected by researcher Yasuyuki Aono.</p>
-                </div>
             </div>
-            <div id="chart"></div>
+            <div>
+                <p>Cherry blossom blooms are a yearly occurrence, often symbolizing the arrival of spring. Researchers in Kyoto collected data from recorded peak blooms dating back to the 9th century. Peak bloom refers to when 80% or more of the trees' blossoms are open.</p>
+                <p>Hover over each bloom to see how the data were collected. Data that were collected in the same way will also be highlighted.</p>
+                <p>Data were collected by researcher Yasuyuki Aono.</p>
+            </div>
+        </div>
+        <div id="chart--container">
+            <div>
+                <div id="chart"></div>
+                <img id="tree" src="./svg/tree.svg">
+            </div>
             <div id="legend"></div>
-            <img id="tree" src="./svg/tree.svg">
         </div>
         <script type="module" src="./modules/helper_functions.js"></script>
         <script type="module" src="./modules/visualization.js"></script>
