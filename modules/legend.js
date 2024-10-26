@@ -15,7 +15,7 @@ function colorLegend(margin, width, height, spacing, fillScale, temp, r) {
         .attr("class", "legend--title")
         .attr("y", 12)
         .attr("x", 5)
-        .text("Temperature");
+        .text("temperature");
 
     temp.forEach(function(d, i) {
 
@@ -50,7 +50,7 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
         .attr("class", "legend--title")
         .attr("y", 12)
         .attr("x", 5)
-        .text("Standard Deviation");
+        .text("standard deviation");
 
     sd.forEach(function(d, i) {
 
@@ -87,7 +87,7 @@ function medianLegend(margin, width, height, xScale, yScale, sdFillScale, sd) {
         .attr("class", "legend--title")
         .attr("y", 12)
         .attr("x", 5)
-        .text("Median");
+        .text("median");
 
     legend
         .append("rect")

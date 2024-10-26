@@ -118,26 +118,26 @@ export function drawGrid(svg, dates, xScale, yScale, sdFillScale) {
         .attr("class","axis--label")
         .attr("x", margin.left + xWidth*5/2)
         .attr("y", height-margin.bottom/2 + 15)
-        .text("March");
+        .text("march");
 
     const april = svg.append("text")
         .attr("class","axis--label")
         .attr("x", margin.left + xWidth*5 + xWidth*30/2)
         .attr("y", height-margin.bottom/2 + 15)
-        .text("April");
+        .text("april");
 
     const may = svg.append("text")
         .attr("class","axis--label")
         .attr("x", margin.left + xWidth*35 + xWidth*4/2)
         .attr("y", height-margin.bottom/2 + 15)
-        .text("May");
+        .text("may");
 
     const yAxisLabel = svg.append("text")
         .attr("class","axis--label")
         .attr("transform","rotate(-90)")
         .attr("x",-height/2)
         .attr("y",margin.left/2 - 10)
-        .text("Century");
+        .text("century");
 
     const bars = svg.selectAll("rect")
         .data(dates)

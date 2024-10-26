@@ -10,6 +10,8 @@ html, body {
   line-height: 1;
   margin: 0;
   padding: 0;
+  background-color: #212121;
+  color: #ffffff;
 }
 
 body {
@@ -24,6 +26,12 @@ h1 {
   color: #E93C8F;
   font-weight: 300;
   margin: 30px 10px;
+}
+
+p {
+  text-align: left;
+  font-size: 12pt;
+  line-height: 1.2;
 }
 
 button {
@@ -51,11 +59,6 @@ button:hover {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-
-  p {
-    text-align: left;
-    font-size: 12pt;
-  }
 }
 
 #chart {
@@ -94,15 +97,17 @@ button:hover {
 
 .legend--label {
   font-size: 12pt;
+  fill: #eeeeee;
 }
 
 .axis--label,
 .legend--title {
   font-size: 12pt;
   text-anchor: middle;
-  text-transform: uppercase;
+  font-variant: small-caps;
   font-weight: 500;
-  fill: #212121;
+  fill: #eeeeee;
+  letter-spacing: 1px;
 }
 
 .axis {
@@ -121,6 +126,7 @@ button:hover {
 .tick text,
 .legend--text {
   font-size: 10pt;
+  fill: #d7d7d7;
 }
 
 .tooltip {
@@ -130,12 +136,13 @@ button:hover {
   visibility: hidden;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 12px;
   padding: 2px;
   pointer-events: none;
   background-color: rgba(255, 255, 255, 0.8);
-  padding: 10px 20px 10px 20px;
-  border-radius: 10px;
+  color: #212121;
+  padding: 8px 16px;
+  border-radius: 5px;
 }
 
 h1:before{
