@@ -34,41 +34,47 @@ export function sim(svg, data, speed, xScale, yScale, fillScale, rStart, rEnd) {
         .force('collision', d3.forceCollide().radius(rEnd).strength(1))
         .on('tick', ticked);
 
+
+    var u = svg
+        .selectAll('circle')
+        .data(data)
+        .join('circle')
+        .attr('class', function(d) {return d.data_type_code.replace(/\s/g, '')})
+        .attr('cx', function (d) { return d.x + xScale.bandwidth()/2; })
+        .attr('cy', function (d) { return d.y + yScale.bandwidth()/2; })
+        .attr("fill", "#ffffff")
+        .attr("stroke", function(d) {return fillScale(d.temp_bin)})
+        .attr('r', 0)
+        .attr('opacity', 0);
+
     function ticked() {
 
         var u = svg
-            .selectAll('circle')
-            .data(data)
-            .join('circle')
-            .attr('class', function(d) {return d.data_type_code.replace(/\s/g, '')})
-            .attr('cx', function (d) { return d.x + xScale.bandwidth()/2; })
-            .attr('cy', function (d) { return d.y + yScale.bandwidth()/2; })
-            .attr("fill", "#ffffff")
-            .attr("stroke", function(d) {return fillScale(d.temp_bin)})
-            .attr('r', 0)
-            .attr('opacity', 0);
+        .selectAll('circle')
+        .attr('cx', function (d) { return d.x + xScale.bandwidth()/2; })
+        .attr('cy', function (d) { return d.y + yScale.bandwidth()/2; });
+       
+        u.on('mouseover', function (event, d) {
 
-            u.on('mouseover', function (event, d) {
+            tooltip.style("visibility", "visible")
+                .style("left", event.offsetX + "px")
+                .style("top", event.offsetY + "px")
+                .html(`Data collection type: ${d.data_type_code}`);
 
-                tooltip.style("visibility", "visible")
-                    .style("left", event.offsetX + "px")
-                    .style("top", event.offsetY + "px")
-                    .html(`Data collection type: ${d.data_type_code}`);
+            let type = d.data_type_code.replace(/\s/g, '');
 
-                let type = d.data_type_code.replace(/\s/g, '');
+            let sameType = d3.selectAll("." + type)
 
-                let sameType = d3.selectAll("." + type)
+            u.attr("opacity", 0.25);
+            sameType.attr("opacity", 1).raise()
 
-                u.attr("opacity", 0.25);
-                sameType.attr("opacity", 1).raise()
+            d3.select(this).attr("fill", fillScale(d.temp_bin))
 
-                d3.select(this).attr("fill", fillScale(d.temp_bin))
-
-            }).on('mouseout', function (event, d) {
-                tooltip.style("visibility", "hidden")
-                u.attr("opacity", 1);
-                d3.select(this).attr("fill", "#FFFFFF")
-            });
+        }).on('mouseout', function (event, d) {
+            tooltip.style("visibility", "hidden")
+            u.attr("opacity", 1);
+            d3.select(this).attr("fill", "#FFFFFF")
+        });
 
         u
             .transition()
