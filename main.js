@@ -58,10 +58,10 @@ function draw(data, dates) {
     let play = true;
     let days = uniqueArray(dates, "date").sort(function(a, b) {return a - b});
     let centuries = uniqueArray(data, "century");
-    const margin = {top: 20, left: 50, right: 10, bottom: 50};
+    const margin = {top: 30, left: 50, right: 10, bottom: 50};
     const padding = .05;
     const width = 1000;
-    const height = 600;
+    const height = 550;
     const temp = [">=9", ">=6 & <9", ">=3 & <6", "<3"];
     const sd = ["1", "2", "3"];
     const rStart = 0;
@@ -102,7 +102,7 @@ function draw(data, dates) {
 
     Vis.drawGrid(svg, dates, xScale, yScale, sdFillScale);
     Legend.drawLegend(fillScale, xScale, yScale, sdFillScale, temp, sd, rEnd);
-    // Vis.sim(svg, data, params.speed, xScale, yScale, fillScale, rStart, rEnd);
+    Vis.sim(svg, data, params.speed, xScale, yScale, fillScale, rStart, rEnd);
 
     const dispatch = d3.dispatch("params");
 

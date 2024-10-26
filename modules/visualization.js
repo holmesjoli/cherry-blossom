@@ -84,7 +84,7 @@ export function sim(svg, data, speed, xScale, yScale, fillScale, rStart, rEnd) {
 export function drawGrid(svg, dates, xScale, yScale, sdFillScale) {
 
     const width = 1000;
-    const height = 600;
+    const height = 550;
 
     const margin = {top: 20, left: 50, right: 10, bottom: 50};
     const innerWidth = width - margin.left - margin.right;

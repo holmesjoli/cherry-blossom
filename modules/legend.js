@@ -56,8 +56,8 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
 
         legend
             .append("rect")
-            .attr("y", margin)
-            .attr("x", 5 + spacing*i*1.5)
+            .attr("y", margin + 10)
+            .attr("x", 5 + spacing*i)
             .attr("width", xScale.bandwidth())
             .attr("height", yScale.bandwidth())
             .attr("fill", sdFillScale(d))
@@ -66,8 +66,8 @@ function sdLegend(margin, width, height, spacing, xScale, yScale, sdFillScale, s
         legend
             .append("text")
             .attr("class", "legend--text")
-            .attr("y", margin - 5)
-            .attr("x", 5 + spacing*i*1.5 + xScale.bandwidth())
+            .attr("y", margin)
+            .attr("x", spacing*i  + xScale.bandwidth()/2)
             .text(d);
     });
 }
@@ -91,7 +91,7 @@ function medianLegend(margin, width, height, xScale, yScale, sdFillScale, sd) {
 
     legend
         .append("rect")
-        .attr("y", margin)
+        .attr("y", margin + 10)
         .attr("x", 5)
         .attr("width", xScale.bandwidth())
         .attr("height", yScale.bandwidth())
@@ -101,7 +101,7 @@ function medianLegend(margin, width, height, xScale, yScale, sdFillScale, sd) {
     legend
         .append("text")
         .attr("class", "legend--text")
-        .attr("y", margin - 5)
+        .attr("y", margin)
         .attr("x", 5)
         .text("For each century");
 }
